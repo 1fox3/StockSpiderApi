@@ -13,14 +13,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * 获取分钟粒度成交信息
+ * 不支持港股
+ * 返回数据包含当前交易日数据
+ * scale参数大于等240，时间只有日期
+ * 240:按天数据
+ * 1200： 按周数据
+ * 86400: 按年数据
  *
  * @author lusongsong
  * @date 2020/11/4 16:37
@@ -53,13 +57,15 @@ public class SinaMinuteKLineData extends SinaBaseApi {
      * @return
      */
     public List<SinaMinuteKLineDataPo> kLineDataList(StockVo stockVo, Integer scale, Integer dataLen) {
-        List<SinaMinuteKLineDataPo> list = new LinkedList<>();
+        List<SinaMinuteKLineDataPo> list = new ArrayList<>();
         try {
             if (!scaleList.contains(scale)) {
                 return list;
             }
             HttpUtil httpUtil = new HttpUtil();
-            httpUtil.setUrl(apiUrl).setOriCharset("GBK");
+            httpUtil.setUrl(apiUrl)
+                    .setOriCharset(HttpUtil.CHARSET_GBK)
+                    .setErrorOriCharset(HttpUtil.CHARSET_UTF8);
             httpUtil.setParam("symbol", SinaBaseApi.sinaStockCode(stockVo));
             httpUtil.setParam("scale", Integer.toString(scale));
             httpUtil.setParam("datalen", Integer.toString(dataLen));
@@ -79,8 +85,8 @@ public class SinaMinuteKLineData extends SinaBaseApi {
      * @param response
      * @return
      */
-    public List<SinaMinuteKLineDataPo> handleResponse(String response) {
-        List<SinaMinuteKLineDataPo> list = new LinkedList<>();
+    private List<SinaMinuteKLineDataPo> handleResponse(String response) {
+        List<SinaMinuteKLineDataPo> list = new ArrayList<>();
         try {
             //其中的这个data是接口传来的json数据
             JSONArray jsonArray = JSONArray.fromObject(response);

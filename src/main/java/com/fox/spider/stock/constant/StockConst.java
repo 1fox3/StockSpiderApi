@@ -65,4 +65,17 @@ public class StockConst {
      * st股票名称标识
      */
     public static final String STOCK_NAME_ST = "ST";
+    /**
+     * 新上市股票名称标识
+     */
+    public static final String STOCK_NAME_NEW = "N";
+
+    /**
+     * 前复权
+     */
+    public static final Integer SFQ_BEFORE = 1;
+    /**
+     * 后复权
+     */
+    public static final Integer SFQ_AFTER = 2;
 }
