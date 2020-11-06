@@ -78,4 +78,17 @@ public class StockConst {
      * 后复权
      */
     public static final Integer SFQ_AFTER = 2;
+
+    /**
+     * 日期类型（天）
+     */
+    public static final Integer DT_DAY = 1;
+    /**
+     * 日期类型（周）
+     */
+    public static final Integer DT_WEEK = 2;
+    /**
+     * 日期类型（月）
+     */
+    public static final Integer DT_MONTH = 3;
 }

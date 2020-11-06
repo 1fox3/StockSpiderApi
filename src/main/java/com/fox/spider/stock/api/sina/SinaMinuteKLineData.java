@@ -49,7 +49,7 @@ public class SinaMinuteKLineData extends SinaBaseApi {
     private static List<Integer> scaleList = Arrays.asList(5, 15, 30, 60, 240, 1200, 1680, 86400);
 
     /**
-     * 获取交易信息列表
+     * 获取分钟粒度成交信息
      *
      * @param stockVo
      * @param scale

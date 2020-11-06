@@ -38,7 +38,7 @@ public class SinaRealtimePriceDealNumRatio extends SinaBaseApi {
     private static String apiUrl = "https://vip.stock.finance.sina.com.cn/quotes_service/view/cn_price.php";
 
     /**
-     * 获取成交占比信息
+     * 获取实时成交价格占比
      *
      * @param stockVo
      * @return

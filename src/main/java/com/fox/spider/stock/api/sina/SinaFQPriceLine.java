@@ -48,7 +48,7 @@ public class SinaFQPriceLine extends SinaBaseApi {
     }};
 
     /**
-     * 获取复权信息
+     * 获取复权价格信息
      *
      * @param stockVo
      * @param fqType
