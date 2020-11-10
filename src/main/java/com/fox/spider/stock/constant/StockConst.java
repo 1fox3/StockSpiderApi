@@ -1,7 +1,8 @@
 package com.fox.spider.stock.constant;
 
-import java.util.Arrays;
-import java.util.List;
+import com.fox.spider.stock.entity.vo.StockVo;
+
+import java.util.*;
 
 /**
  * 股票相关静态常量
@@ -15,21 +16,41 @@ public class StockConst {
      */
     public static final Integer SM_UNKNOWN = 0;
     /**
+     * 未知名称
+     */
+    public static final String SM_NAME_UNKNOWN = "未知";
+    /**
      * A股(沪深)
      */
     public static final Integer SM_A = 1;
+    /**
+     * A股名称
+     */
+    public static final String SM_NAME_A = "A股";
     /**
      * 沪市
      */
     public static final Integer SM_SH = 1;
     /**
+     * 沪市名称
+     */
+    public static final String SM_NAME_SH = "沪市";
+    /**
      * 深市
      */
     public static final Integer SM_SZ = 2;
     /**
-     * 港式
+     * 深市名称
+     */
+    public static final String SM_NAME_SZ = "深市";
+    /**
+     * 港股
      */
     public static final Integer SM_HK = 3;
+    /**
+     * 港股名称
+     */
+    public static final String SM_NAME_HK = "港股";
     /**
      * 全部列表
      */
@@ -38,6 +59,20 @@ public class StockConst {
      * A股列表
      */
     public static final List<Integer> SM_A_LIST = Arrays.asList(SM_SH, SM_SZ);
+    /**
+     * 无涨跌幅限制的交易所
+     */
+    public static final List<Integer> SM_NO_LIMIT_LIST = Arrays.asList(SM_HK);
+    /**
+     * 股市名称对应
+     */
+    public static final Map<Integer, String> SM_NAME_MAP = new HashMap<Integer, String>() {{
+        put(SM_UNKNOWN, SM_NAME_UNKNOWN);
+        put(SM_A, SM_NAME_A);
+        put(SM_SH, SM_NAME_SH);
+        put(SM_SZ, SM_NAME_SZ);
+        put(SM_HK, SM_NAME_HK);
+    }};
 
     /**
      * 未知
@@ -91,4 +126,61 @@ public class StockConst {
      * 日期类型（月）
      */
     public static final Integer DT_MONTH = 3;
+
+    /**
+     * A股重点指数
+     */
+    public static final List<StockVo> TOP_INDEX_A = Arrays.asList(
+            //上证指数
+            new StockVo("000001", SM_SH),
+            //深证成指
+            new StockVo("399001", SM_SZ),
+            //创业板指
+            new StockVo("399006", SM_SZ)
+    );
+    /**
+     * 港股重点指数
+     */
+    public static final List<StockVo> TOP_INDEX_HK = Arrays.asList(
+            //恒生指数
+            new StockVo("HSI", SM_HK),
+            //国企指数
+            new StockVo("HSCEI", SM_HK)
+    );
+
+    /**
+     * 股市参照股票
+     */
+    public static final Map<Integer, StockVo> DEMO_STOCK = new HashMap<Integer, StockVo>() {{
+        put(SM_A, new StockVo("000001", SM_SH));
+        put(SM_SH, new StockVo("000001", SM_SH));
+        put(SM_SZ, new StockVo("399001", SM_SZ));
+        put(SM_HK, new StockVo("HSI", SM_HK));
+    }};
+
+    /**
+     * 获取股市名称
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static String stockMarketName(Integer stockMarket) {
+        return SM_NAME_MAP.containsKey(stockMarket) ? SM_NAME_MAP.get(stockMarket) : "";
+    }
+
+    /**
+     * 获取交易所top指标列表
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static List<StockVo> stockMarketTopIndex(Integer stockMarket) {
+        if (SM_A_LIST.contains(stockMarket)) {
+            return TOP_INDEX_A;
+        }
+        if (SM_HK.equals(stockMarket)) {
+            return TOP_INDEX_HK;
+        }
+        return new ArrayList();
+    }
 }
