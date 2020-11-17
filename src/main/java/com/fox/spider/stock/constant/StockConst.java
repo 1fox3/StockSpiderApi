@@ -1,5 +1,6 @@
 package com.fox.spider.stock.constant;
 
+import com.fox.spider.stock.entity.vo.StockCategoryVo;
 import com.fox.spider.stock.entity.vo.StockVo;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.*;
  * @date 2020/11/4 15:37
  */
 public class StockConst {
+    //证券交易所
     /**
      * 未知
      */
@@ -74,27 +76,279 @@ public class StockConst {
         put(SM_HK, SM_NAME_HK);
     }};
 
+    //股票类型
     /**
      * 未知
      */
     public static final Integer ST_UNKNOWN = 0;
     /**
+     * 未知
+     */
+    public static final String ST_NAME_UNKNOWN = "未知";
+    /**
      * 指数
      */
     public static final Integer ST_INDEX = 1;
     /**
+     * 指数
+     */
+    public static final String ST_NAME_INDEX = "指数";
+    /**
      * 股票
      */
     public static final Integer ST_STOCK = 2;
+    /**
+     * 股票
+     */
+    public static final String ST_NAME_STOCK = "股票";
+    /**
+     * 基金
+     */
+    public static final Integer ST_FUND = 3;
+    /**
+     * 基金
+     */
+    public static final String ST_NAME_FUND = "基金";
+    /**
+     * 债券
+     */
+    public static final Integer ST_BOND = 4;
+    /**
+     * 债券
+     */
+    public static final String ST_NAME_BOND = "债券";
+    /**
+     * 权证
+     */
+    public static final Integer ST_WARRANT = 5;
+    /**
+     * 权证
+     */
+    public static final String ST_NAME_WARRANT = "权证";
 
+    //股票分类
     /**
-     * 科创版
+     * 未知
      */
-    public static final Integer SK_STAR = 4;
+    public static final Integer SK_UNKNOWN = 0;
     /**
-     * 创业版
+     * 沪指
      */
-    public static final Integer SK_GEM = 10;
+    public static final Integer SK_SH_INDEX = 1;
+    /**
+     * 沪A
+     */
+    public static final Integer SK_SH_STOCK_A = 2;
+    /**
+     * 沪B
+     */
+    public static final Integer SK_SH_STOCK_B = 3;
+    /**
+     * 科创板
+     */
+    public static final Integer SK_SH_STOCK_STAR = 4;
+    /**
+     * 沪基
+     */
+    public static final Integer SK_SH_FUND = 5;
+    /**
+     * 沪债
+     */
+    public static final Integer SK_SH_BOND = 6;
+    /**
+     * 深指
+     */
+    public static final Integer SK_SZ_INDEX = 7;
+    /**
+     * 深A
+     */
+    public static final Integer SK_SZ_STOCK_A = 8;
+    /**
+     * 深B
+     */
+    public static final Integer SK_SZ_STOCK_B = 9;
+    /**
+     * 创业板
+     */
+    public static final Integer SK_SZ_STOCK_GEM = 10;
+    /**
+     * 深基
+     */
+    public static final Integer SK_SZ_FUND = 11;
+    /**
+     * 深债
+     */
+    public static final Integer SK_SZ_BOND = 12;
+    /**
+     * 港指
+     */
+    public static final Integer SK_HK_INDEX = 13;
+    /**
+     * 港股
+     */
+    public static final Integer SK_HK_STOCK = 14;
+    /**
+     * 港基
+     */
+    public static final Integer SK_HK_FUND = 15;
+    /**
+     * 权证
+     */
+    public static final Integer SK_HK_WARRANT = 16;
+    /**
+     * 股票代码分类
+     */
+    public static final Map<Integer, Map<Integer, Map<Integer, List<String>>>> STOCK_CATEGORY_VERIFY_MAP =
+            new HashMap<Integer, Map<Integer, Map<Integer, List<String>>>>() {{
+                //沪市
+                put(SM_SH, new HashMap<Integer, Map<Integer, List<String>>>() {{
+                    //指数
+                    put(ST_INDEX, new HashMap<Integer, List<String>>() {{
+                        //沪指
+                        put(
+                                SK_SH_INDEX,
+                                Arrays.asList("000")
+                        );
+                    }});
+                    //股票
+                    put(ST_STOCK, new HashMap<Integer, List<String>>() {{
+                        //沪A
+                        put(
+                                SK_SH_STOCK_A,
+                                Arrays.asList("600", "601", "603", "605")
+                        );
+                        //沪B
+                        put(
+                                SK_SH_STOCK_B,
+                                Arrays.asList("900")
+                        );
+                        //科创
+                        put(
+                                SK_SH_STOCK_STAR,
+                                Arrays.asList("688", "689")
+                        );
+                    }});
+                    //基金
+                    put(ST_FUND, new HashMap<Integer, List<String>>() {{
+                        //沪基
+                        put(
+                                SK_SH_FUND,
+                                Arrays.asList("500", "501", "502", "505", "510",
+                                        "511", "512", "513", "515", "518", "519",
+                                        "522", "523")
+                        );
+                    }});
+                    //债券
+                    put(ST_BOND, new HashMap<Integer, List<String>>() {{
+                        //沪债
+                        put(
+                                SK_SH_BOND,
+                                Arrays.asList("010", "018", "019", "020", "090",
+                                        "091", "100", "102", "103", "104", "105",
+                                        "106", "107", "108", "110", "113", "120",
+                                        "122", "124", "127", "130", "132", "133",
+                                        "134", "136", "140", "141", "143", "144",
+                                        "147", "152", "155", "157", "160", "163",
+                                        "171", "173", "175", "182", "190", "191",
+                                        "192", "201", "202", "204", "751")
+                        );
+                    }});
+                }});
+                //深市
+                put(SM_SZ, new HashMap<Integer, Map<Integer, List<String>>>() {{
+                    //指数
+                    put(ST_INDEX, new HashMap<Integer, List<String>>() {{
+                        //深指
+                        put(
+                                SK_SZ_INDEX,
+                                Arrays.asList("399")
+                        );
+                    }});
+                    //股票
+                    put(ST_STOCK, new HashMap<Integer, List<String>>() {{
+                        //深A
+                        put(
+                                SK_SZ_STOCK_A,
+                                Arrays.asList("000", "001", "002", "003")
+                        );
+                        //深B
+                        put(
+                                SK_SZ_STOCK_B,
+                                Arrays.asList("200", "201")
+                        );
+                        //创业
+                        put(
+                                SK_SZ_STOCK_GEM,
+                                Arrays.asList("300")
+                        );
+                    }});
+                    //基金
+                    put(ST_FUND, new HashMap<Integer, List<String>>() {{
+                        //深基
+                        put(
+                                SK_SZ_FUND,
+                                Arrays.asList("150", "159", "16", "184")
+                        );
+                    }});
+                    //债券
+                    put(ST_BOND, new HashMap<Integer, List<String>>() {{
+                        //深债
+                        put(
+                                SK_SZ_BOND,
+                                Arrays.asList("10", "111", "112", "120", "123",
+                                        "127", "128", "131", "149", "190", "191")
+                        );
+                    }});
+                }});
+                //港股
+                put(SM_HK, new HashMap<Integer, Map<Integer, List<String>>>() {{
+                    //指数
+                    put(ST_INDEX, new HashMap<Integer, List<String>>() {{
+                        //港指
+                        put(
+                                SK_HK_INDEX,
+                                Arrays.asList("HS")
+                        );
+                    }});
+                    //股票
+                    put(ST_STOCK, new HashMap<Integer, List<String>>() {{
+                        //港股
+                        put(
+                                SK_HK_STOCK,
+                                Arrays.asList("00", "01", "020", "021", "022",
+                                        "023", "024", "025", "026", "027", "0285",
+                                        "0286", "0287", "0288", "0289", "029", "033",
+                                        "036", "037", "038", "039", "043", "046",
+                                        "060", "061", "062", "068", "069", "080",
+                                        "081", "082", "083", "084", "085", "086",
+                                        "099")
+                        );
+                    }});
+                    //基金
+                    put(ST_FUND, new HashMap<Integer, List<String>>() {{
+                        //港基
+                        put(
+                                SK_HK_FUND,
+                                Arrays.asList("0280", "0281", "0282", "0283", "0284",
+                                        "030", "031", "072", "073", "075", "090",
+                                        "091", "098", "807", "828", "830", "831",
+                                        "870")
+                        );
+                    }});
+                    //权证
+                    put(ST_WARRANT, new HashMap<Integer, List<String>>() {{
+                        //权证
+                        put(
+                                SK_HK_WARRANT,
+                                Arrays.asList("100", "101", "11", "121", "122",
+                                        "123", "124", "125", "126", "127", "128",
+                                        "129", "13", "14", "15", "16", "17",
+                                        "18", "19", "2", "47", "480", "481",
+                                        "5", "6")
+                        );
+                    }});
+                }});
+            }};
 
     /**
      * st股票名称标识
@@ -182,5 +436,32 @@ public class StockConst {
             return TOP_INDEX_HK;
         }
         return new ArrayList();
+    }
+
+    /**
+     * 获取股票类别
+     *
+     * @param stockCode
+     * @param stockMarket
+     * @return
+     */
+    public static StockCategoryVo stockCategory(String stockCode, Integer stockMarket) {
+        if (null == stockCode || stockCode.isEmpty() || null == stockMarket
+                || !STOCK_CATEGORY_VERIFY_MAP.containsKey(stockMarket)) {
+            return new StockCategoryVo();
+        }
+        Map<Integer, Map<Integer, List<String>>> stockTypeMap = STOCK_CATEGORY_VERIFY_MAP.get(stockMarket);
+        for (Integer stockType : stockTypeMap.keySet()) {
+            Map<Integer, List<String>> stockKindMap = stockTypeMap.get(stockType);
+            for (Integer stockKind : stockKindMap.keySet()) {
+                List<String> preCodeList = stockKindMap.get(stockKind);
+                for (String preCode : preCodeList) {
+                    if (stockCode.startsWith(preCode)) {
+                        return new StockCategoryVo(stockMarket, stockType, stockKind);
+                    }
+                }
+            }
+        }
+        return new StockCategoryVo();
     }
 }
