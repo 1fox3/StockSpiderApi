@@ -406,7 +406,6 @@ public class StockConst {
      * 股市参照股票
      */
     public static final Map<Integer, StockVo> DEMO_STOCK = new HashMap<Integer, StockVo>() {{
-        put(SM_A, new StockVo("000001", SM_SH));
         put(SM_SH, new StockVo("000001", SM_SH));
         put(SM_SZ, new StockVo("399001", SM_SZ));
         put(SM_HK, new StockVo("HSI", SM_HK));
