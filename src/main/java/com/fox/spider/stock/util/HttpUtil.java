@@ -1,9 +1,9 @@
 package com.fox.spider.stock.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
-import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -16,6 +16,10 @@ import java.util.zip.GZIPInputStream;
  * @date 2020/11/4 15:52
  */
 public class HttpUtil {
+    /**
+     * 日志
+     */
+    private Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * 正常响应错误码
      */
@@ -469,7 +473,7 @@ public class HttpUtil {
         }
         //GET请求无需发送数据
         if (METHOD_GET.equals(this.getMethod())) {
-            return this.readResponse(urlCon);
+            return readResponse(urlCon);
         }
         //允许输入输出
         urlCon.setDoOutput(true);
@@ -527,8 +531,12 @@ public class HttpUtil {
                     response = CharsetUtil.convertGBKToUtf8(response);
                 }
             }
-            return new HttpResponseDto(urlCon.getResponseCode(), urlCon.getResponseMessage(),
+            HttpResponseDto httpResponseDto = new HttpResponseDto(urlCon.getResponseCode(), urlCon.getResponseMessage(),
                     urlCon.getHeaderFields(), urlCon.getURL().toString(), response);
+            if (!CODE_SUCCESS.equals(httpResponseDto.getCode())) {
+                logger.error(httpResponseDto.toString());
+            }
+            return httpResponseDto;
         } catch (Exception e) {
             return new HttpResponseDto(urlCon.getResponseCode(), urlCon.getResponseMessage(),
                     urlCon.getHeaderFields(), urlCon.getURL().toString(), "");
