@@ -116,8 +116,8 @@ public class SinaRealtimeDealInfo extends SinaBaseApi {
                     String stockCodeStr = getStockCodeStr(responseArr[i]);
                     String stockCode = getStockCode(stockCodeStr);
                     SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo = getSinaRealtimeDealInfo(responseArr[i]);
-                    sinaRealtimeDealInfoPo.setStockCode(stockCode);
-                    if (null != stockCode && !stockCode.isEmpty()) {
+                    if (null != stockCode && !stockCode.isEmpty() && null != sinaRealtimeDealInfoPo) {
+                        sinaRealtimeDealInfoPo.setStockCode(stockCode);
                         sinaRealtimeDealInfoPoHashMap.put(stockCode, sinaRealtimeDealInfoPo);
                     }
                 }
@@ -191,8 +191,9 @@ public class SinaRealtimeDealInfo extends SinaBaseApi {
                 } else {
                     sinaRealtimeDealInfoPo = aDealInfo(responseArr);
                 }
+            } else {
+                return null;
             }
-
         }
         return sinaRealtimeDealInfoPo;
     }
