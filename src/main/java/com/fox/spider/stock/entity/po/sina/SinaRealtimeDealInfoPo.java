@@ -3,6 +3,7 @@ package com.fox.spider.stock.entity.po.sina;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 
@@ -102,4 +103,22 @@ public class SinaRealtimeDealInfoPo {
      * 未知的数据列表
      */
     List<String> unknownKeyList;
+
+    /**
+     * 获取波动
+     *
+     * @return
+     */
+    public BigDecimal getSurgeRate() {
+        if (null == preClosePrice || null == highestPrice || null == lowestPrice
+                || 0 == preClosePrice.compareTo(BigDecimal.ZERO)
+                || 0 == highestPrice.compareTo(BigDecimal.ZERO)
+                || 0 == lowestPrice.compareTo(BigDecimal.ZERO)
+        ) {
+            return BigDecimal.ZERO;
+        }
+        //波动
+        BigDecimal surgeRate = highestPrice.subtract(lowestPrice).divide(preClosePrice, 4, RoundingMode.HALF_UP);
+        return surgeRate;
+    }
 }

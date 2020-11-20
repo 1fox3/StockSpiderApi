@@ -58,6 +58,10 @@ public class StockConst {
      */
     public static final List<Integer> SM_ALL = Arrays.asList(SM_SH, SM_SZ, SM_HK);
     /**
+     * 按股票编码划分的全部股市
+     */
+    public static final List<Integer> SM_CODE_ALL = Arrays.asList(StockConst.SM_A, StockConst.SM_HK);
+    /**
      * A股列表
      */
     public static final List<Integer> SM_A_LIST = Arrays.asList(SM_SH, SM_SZ);
@@ -406,9 +410,18 @@ public class StockConst {
      * 股市参照股票
      */
     public static final Map<Integer, StockVo> DEMO_STOCK = new HashMap<Integer, StockVo>() {{
-        put(SM_SH, new StockVo("000001", SM_SH));
-        put(SM_SZ, new StockVo("399001", SM_SZ));
-        put(SM_HK, new StockVo("HSI", SM_HK));
+        //顶点软件
+        put(SM_SH, new StockVo("603383",StockConst.SM_SH));
+        //同花顺
+        put(SM_SZ, new StockVo("300033", StockConst.SM_SZ));
+        //腾讯控股
+        put(SM_HK, new StockVo("00700", StockConst.SM_HK));
+//        //上证指数
+//        put(SM_SH, new StockVo("000001", SM_SH));
+//        //深证成指
+//        put(SM_SZ, new StockVo("399001", SM_SZ));
+//        //恒生指数
+//        put(SM_HK, new StockVo("HSI", SM_HK));
     }};
 
     /**
