@@ -30,7 +30,7 @@ import java.util.List;
  * @date 2020/11/4 16:37
  */
 @Component
-public class SinaMinuteKLineData extends SinaBaseApi {
+public class SinaMinuteKLineDataApi extends SinaBaseApi {
     /**
      * 日志
      */

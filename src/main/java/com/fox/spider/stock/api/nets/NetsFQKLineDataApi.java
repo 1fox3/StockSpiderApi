@@ -25,7 +25,7 @@ import java.util.*;
  * @date 2020/11/6 14:29
  */
 @Component
-public class NetsFQKLineData extends NetsBaseApi {
+public class NetsFQKLineDataApi extends NetsBaseApi {
     /**
      * 日志
      */

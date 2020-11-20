@@ -26,7 +26,7 @@ import java.util.TreeMap;
  * @date 2020/11/5 15:17
  */
 @Component
-public class SinaFQPriceLine extends SinaBaseApi {
+public class SinaFQPriceLineApi extends SinaBaseApi {
     /**
      * 日志
      */

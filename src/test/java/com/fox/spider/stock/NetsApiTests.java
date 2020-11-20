@@ -1,11 +1,10 @@
 package com.fox.spider.stock;
 
-import com.fox.spider.stock.api.nets.NetsDayDealInfo;
-import com.fox.spider.stock.api.nets.NetsFQKLineData;
-import com.fox.spider.stock.api.nets.NetsFQTotalClosePrice;
-import com.fox.spider.stock.api.nets.NetsRealtimeMinuteDealInfo;
+import com.fox.spider.stock.api.nets.NetsDayDealInfoApi;
+import com.fox.spider.stock.api.nets.NetsFQKLineDataApi;
+import com.fox.spider.stock.api.nets.NetsFQTotalClosePriceApi;
+import com.fox.spider.stock.api.nets.NetsRealtimeMinuteDealInfoApi;
 import com.fox.spider.stock.constant.StockConst;
-import com.fox.spider.stock.entity.vo.StockVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,21 +16,18 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/11/6 14:07
  */
 @SpringBootTest
-class NetsApiTests {
-    @Autowired
-    NetsDayDealInfo netsDayDealInfo;
-    @Autowired
-    NetsFQKLineData netsFQKLineData;
-    @Autowired
-    NetsRealtimeMinuteDealInfo netsRealtimeMinuteDealInfo;
-    @Autowired
-    NetsFQTotalClosePrice netsFQTotalClosePrice;
+class NetsApiTests extends StockApiBaseTests {
     /**
-     * 股票实例
+     * 网易接口
      */
-    private StockVo stockVo = new StockVo("603383", StockConst.SM_SH);//顶点软件
-//    private StockVo stockVo = new StockVo("300033", StockConst.SM_SZ);//同花顺
-//    private StockVo stockVo = new StockVo("00700", StockConst.SM_HK);//腾讯
+    @Autowired
+    NetsDayDealInfoApi netsDayDealInfoApi;
+    @Autowired
+    NetsFQKLineDataApi netsFQKLineDataApi;
+    @Autowired
+    NetsRealtimeMinuteDealInfoApi netsRealtimeMinuteDealInfoApi;
+    @Autowired
+    NetsFQTotalClosePriceApi netsFQTotalClosePriceApi;
 
     /**
      * 按天成交信息测试
@@ -40,7 +36,7 @@ class NetsApiTests {
     void dayDealInfoTest() {
         String startDate = "2020-10-01";
         String endDate = "2020-11-01";
-        System.out.println(netsDayDealInfo.dayDealInfo(stockVo, startDate, endDate));
+        System.out.println(netsDayDealInfoApi.dayDealInfo(TEST_SH_STOCK, startDate, endDate));
     }
 
     /**
@@ -50,7 +46,7 @@ class NetsApiTests {
     void fqKLineDataTest() {
         String startDate = "2019-10-01";
         String endDate = "2020-11-01";
-        System.out.println(netsFQKLineData.fqKLineData(stockVo, startDate, endDate, StockConst.SFQ_BEFORE));
+        System.out.println(netsFQKLineDataApi.fqKLineData(TEST_SH_STOCK, startDate, endDate, StockConst.SFQ_BEFORE));
     }
 
     /**
@@ -58,7 +54,7 @@ class NetsApiTests {
      */
     @Test
     void realtimeMinuteDealInfoTest() {
-        System.out.println(netsRealtimeMinuteDealInfo.realtimeMinuteKLine(stockVo));
+        System.out.println(netsRealtimeMinuteDealInfoApi.realtimeMinuteKLine(TEST_SH_STOCK));
     }
 
     /**
@@ -66,6 +62,6 @@ class NetsApiTests {
      */
     @Test
     void netsFQTotalClosePriceTest() {
-        System.out.println(netsFQTotalClosePrice.fqClosePrice(stockVo, StockConst.DT_DAY, StockConst.SFQ_BEFORE));
+        System.out.println(netsFQTotalClosePriceApi.fqClosePrice(TEST_SH_STOCK, StockConst.DT_DAY, StockConst.SFQ_BEFORE));
     }
 }

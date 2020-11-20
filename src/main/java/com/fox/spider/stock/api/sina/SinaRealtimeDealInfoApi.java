@@ -23,7 +23,7 @@ import java.util.*;
  * @date 2020/11/5 14:31
  */
 @Component
-public class SinaRealtimeDealInfo extends SinaBaseApi {
+public class SinaRealtimeDealInfoApi extends SinaBaseApi {
     /**
      * 日志
      */
@@ -186,7 +186,7 @@ public class SinaRealtimeDealInfo extends SinaBaseApi {
             response = response.substring(startIndex + 1, endIndex);
             if (response.contains(dataSplitStr)) {
                 String[] responseArr = response.split(dataSplitStr);
-                if (StockConst.SM_HK.equals(getStockMarket(stockCodeStr))) {
+                if (StockConst.SM_HK == getStockMarket(stockCodeStr)) {
                     sinaRealtimeDealInfoPo = hkDealInfo(responseArr);
                 } else {
                     sinaRealtimeDealInfoPo = aDealInfo(responseArr);
@@ -327,7 +327,10 @@ public class SinaRealtimeDealInfo extends SinaBaseApi {
             BigDecimal uptickRate = uptickPrice.multiply(new BigDecimal(100)).divide(preClosePrice, 2, RoundingMode.HALF_UP);
             sinaRealtimeDealInfoPo.setUptickRate(uptickRate);
         } catch (Exception e) {
-            logger.error(responseArr.toString());
+            for (int i = 0; i < responseArr.length; i++) {
+                logger.error(responseArr[i]);
+            }
+            logger.error(e.getClass().getSimpleName());
             logger.error(e.getMessage());
         }
         return sinaRealtimeDealInfoPo;
@@ -404,7 +407,10 @@ public class SinaRealtimeDealInfo extends SinaBaseApi {
                 sinaRealtimeDealInfoPo.setUnknownKeyList(unknownList);
             }
         } catch (Exception e) {
-            logger.error(responseArr.toString());
+            for (int i = 0; i < responseArr.length; i++) {
+                logger.error(responseArr[i]);
+            }
+            logger.error(e.getClass().getSimpleName());
             logger.error(e.getMessage());
         }
         return sinaRealtimeDealInfoPo;

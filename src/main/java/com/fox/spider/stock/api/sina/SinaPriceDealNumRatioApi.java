@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  * @date 2020/11/5 14:08
  */
 @Component
-public class SinaPriceDealNumRatio extends SinaBaseApi {
+public class SinaPriceDealNumRatioApi extends SinaBaseApi {
     /**
      * 日志
      */

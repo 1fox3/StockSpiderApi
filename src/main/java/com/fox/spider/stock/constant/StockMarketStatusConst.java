@@ -13,7 +13,7 @@ public class StockMarketStatusConst {
     /**
      * 未知的状态
      */
-    public static final Integer UNKNOWN = 0;
+    public static final int UNKNOWN = 0;
     /**
      * 未知描述
      */
@@ -21,7 +21,7 @@ public class StockMarketStatusConst {
     /**
      * 开盘
      */
-    public static final Integer OPEN = 1;
+    public static final int OPEN = 1;
     /**
      * 开盘描述
      */
@@ -29,7 +29,7 @@ public class StockMarketStatusConst {
     /**
      * 收盘
      */
-    public static final Integer CLOSE = 2;
+    public static final int CLOSE = 2;
     /**
      * 收盘描述
      */
@@ -37,7 +37,7 @@ public class StockMarketStatusConst {
     /**
      * 休市
      */
-    public static final Integer REST = 3;
+    public static final int REST = 3;
     /**
      * 休市描述
      */
@@ -45,7 +45,7 @@ public class StockMarketStatusConst {
     /**
      * 竞价
      */
-    public static final Integer COMPETE = 4;
+    public static final int COMPETE = 4;
     /**
      * 竞价描述
      */
@@ -53,7 +53,7 @@ public class StockMarketStatusConst {
     /**
      * 未开盘
      */
-    public static final Integer INIT = 5;
+    public static final int INIT = 5;
     /**
      * 未开盘描述
      */
@@ -61,7 +61,7 @@ public class StockMarketStatusConst {
     /**
      * 午间休息
      */
-    public static final Integer NOON = 6;
+    public static final int NOON = 6;
     /**
      * 午间休息描述
      */
@@ -69,7 +69,7 @@ public class StockMarketStatusConst {
     /**
      * 即将开盘
      */
-    public static final Integer SOON = 7;
+    public static final int SOON = 7;
     /**
      * 即将开盘藐视
      */

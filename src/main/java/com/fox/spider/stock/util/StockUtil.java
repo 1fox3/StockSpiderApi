@@ -1,6 +1,6 @@
 package com.fox.spider.stock.util;
 
-import com.fox.spider.stock.api.sina.SinaRealtimeDealInfo;
+import com.fox.spider.stock.api.sina.SinaRealtimeDealInfoApi;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.po.sina.SinaRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.vo.StockVo;
@@ -19,11 +19,11 @@ public class StockUtil {
      * @return
      */
     public static String lastDealDate(Integer stockMarket) {
-        SinaRealtimeDealInfo sinaRealtimeDealInfo = new SinaRealtimeDealInfo();
+        SinaRealtimeDealInfoApi sinaRealtimeDealInfoApi = new SinaRealtimeDealInfoApi();
         if (StockConst.DEMO_STOCK.containsKey(stockMarket)) {
             StockVo stockVo = StockConst.DEMO_STOCK.get(stockMarket);
             if (null != stockVo) {
-                SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo = sinaRealtimeDealInfo.realtimeDealInfo(stockVo);
+                SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo = sinaRealtimeDealInfoApi.realtimeDealInfo(stockVo);
                 if (null != sinaRealtimeDealInfoPo && null != sinaRealtimeDealInfoPo.getDt()) {
                     return sinaRealtimeDealInfoPo.getDt();
                 }

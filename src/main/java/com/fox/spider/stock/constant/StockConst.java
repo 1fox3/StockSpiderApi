@@ -16,7 +16,7 @@ public class StockConst {
     /**
      * 未知
      */
-    public static final Integer SM_UNKNOWN = 0;
+    public static final int SM_UNKNOWN = 0;
     /**
      * 未知名称
      */
@@ -24,7 +24,7 @@ public class StockConst {
     /**
      * A股(沪深)
      */
-    public static final Integer SM_A = 1;
+    public static final int SM_A = 1;
     /**
      * A股名称
      */
@@ -32,7 +32,7 @@ public class StockConst {
     /**
      * 沪市
      */
-    public static final Integer SM_SH = 1;
+    public static final int SM_SH = 1;
     /**
      * 沪市名称
      */
@@ -40,7 +40,7 @@ public class StockConst {
     /**
      * 深市
      */
-    public static final Integer SM_SZ = 2;
+    public static final int SM_SZ = 2;
     /**
      * 深市名称
      */
@@ -48,7 +48,7 @@ public class StockConst {
     /**
      * 港股
      */
-    public static final Integer SM_HK = 3;
+    public static final int SM_HK = 3;
     /**
      * 港股名称
      */
@@ -80,7 +80,7 @@ public class StockConst {
     /**
      * 未知
      */
-    public static final Integer ST_UNKNOWN = 0;
+    public static final int ST_UNKNOWN = 0;
     /**
      * 未知
      */
@@ -88,7 +88,7 @@ public class StockConst {
     /**
      * 指数
      */
-    public static final Integer ST_INDEX = 1;
+    public static final int ST_INDEX = 1;
     /**
      * 指数
      */
@@ -96,7 +96,7 @@ public class StockConst {
     /**
      * 股票
      */
-    public static final Integer ST_STOCK = 2;
+    public static final int ST_STOCK = 2;
     /**
      * 股票
      */
@@ -104,7 +104,7 @@ public class StockConst {
     /**
      * 基金
      */
-    public static final Integer ST_FUND = 3;
+    public static final int ST_FUND = 3;
     /**
      * 基金
      */
@@ -112,7 +112,7 @@ public class StockConst {
     /**
      * 债券
      */
-    public static final Integer ST_BOND = 4;
+    public static final int ST_BOND = 4;
     /**
      * 债券
      */
@@ -120,7 +120,7 @@ public class StockConst {
     /**
      * 权证
      */
-    public static final Integer ST_WARRANT = 5;
+    public static final int ST_WARRANT = 5;
     /**
      * 权证
      */
@@ -130,71 +130,71 @@ public class StockConst {
     /**
      * 未知
      */
-    public static final Integer SK_UNKNOWN = 0;
+    public static final int SK_UNKNOWN = 0;
     /**
      * 沪指
      */
-    public static final Integer SK_SH_INDEX = 1;
+    public static final int SK_SH_INDEX = 1;
     /**
      * 沪A
      */
-    public static final Integer SK_SH_STOCK_A = 2;
+    public static final int SK_SH_STOCK_A = 2;
     /**
      * 沪B
      */
-    public static final Integer SK_SH_STOCK_B = 3;
+    public static final int SK_SH_STOCK_B = 3;
     /**
      * 科创板
      */
-    public static final Integer SK_SH_STOCK_STAR = 4;
+    public static final int SK_SH_STOCK_STAR = 4;
     /**
      * 沪基
      */
-    public static final Integer SK_SH_FUND = 5;
+    public static final int SK_SH_FUND = 5;
     /**
      * 沪债
      */
-    public static final Integer SK_SH_BOND = 6;
+    public static final int SK_SH_BOND = 6;
     /**
      * 深指
      */
-    public static final Integer SK_SZ_INDEX = 7;
+    public static final int SK_SZ_INDEX = 7;
     /**
      * 深A
      */
-    public static final Integer SK_SZ_STOCK_A = 8;
+    public static final int SK_SZ_STOCK_A = 8;
     /**
      * 深B
      */
-    public static final Integer SK_SZ_STOCK_B = 9;
+    public static final int SK_SZ_STOCK_B = 9;
     /**
      * 创业板
      */
-    public static final Integer SK_SZ_STOCK_GEM = 10;
+    public static final int SK_SZ_STOCK_GEM = 10;
     /**
      * 深基
      */
-    public static final Integer SK_SZ_FUND = 11;
+    public static final int SK_SZ_FUND = 11;
     /**
      * 深债
      */
-    public static final Integer SK_SZ_BOND = 12;
+    public static final int SK_SZ_BOND = 12;
     /**
      * 港指
      */
-    public static final Integer SK_HK_INDEX = 13;
+    public static final int SK_HK_INDEX = 13;
     /**
      * 港股
      */
-    public static final Integer SK_HK_STOCK = 14;
+    public static final int SK_HK_STOCK = 14;
     /**
      * 港基
      */
-    public static final Integer SK_HK_FUND = 15;
+    public static final int SK_HK_FUND = 15;
     /**
      * 权证
      */
-    public static final Integer SK_HK_WARRANT = 16;
+    public static final int SK_HK_WARRANT = 16;
     /**
      * 股票代码分类
      */
@@ -362,24 +362,24 @@ public class StockConst {
     /**
      * 前复权
      */
-    public static final Integer SFQ_BEFORE = 1;
+    public static final int SFQ_BEFORE = 1;
     /**
      * 后复权
      */
-    public static final Integer SFQ_AFTER = 2;
+    public static final int SFQ_AFTER = 2;
 
     /**
      * 日期类型（天）
      */
-    public static final Integer DT_DAY = 1;
+    public static final int DT_DAY = 1;
     /**
      * 日期类型（周）
      */
-    public static final Integer DT_WEEK = 2;
+    public static final int DT_WEEK = 2;
     /**
      * 日期类型（月）
      */
-    public static final Integer DT_MONTH = 3;
+    public static final int DT_MONTH = 3;
 
     /**
      * A股重点指数
@@ -428,13 +428,15 @@ public class StockConst {
      * @return
      */
     public static List<StockVo> stockMarketTopIndex(Integer stockMarket) {
-        if (SM_A_LIST.contains(stockMarket)) {
-            return TOP_INDEX_A;
+        switch (stockMarket) {
+            case SM_SH:
+            case SM_SZ:
+                return TOP_INDEX_A;
+            case SM_HK:
+                return TOP_INDEX_HK;
+            default:
+                return null;
         }
-        if (SM_HK.equals(stockMarket)) {
-            return TOP_INDEX_HK;
-        }
-        return new ArrayList();
     }
 
     /**

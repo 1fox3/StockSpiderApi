@@ -2,7 +2,6 @@ package com.fox.spider.stock;
 
 import com.fox.spider.stock.api.sina.*;
 import com.fox.spider.stock.constant.StockConst;
-import com.fox.spider.stock.entity.vo.StockVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,27 +13,20 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/11/6 14:05
  */
 @SpringBootTest
-class SinaApiTests {
+class SinaApiTests extends StockApiBaseTests {
     /**
      * 新浪接口
      */
     @Autowired
-    SinaMinuteKLineData sinaMinuteKLineData;
+    SinaMinuteKLineDataApi sinaMinuteKLineDataApi;
     @Autowired
-    SinaPriceDealNumRatio sinaPriceDealNumRatio;
+    SinaPriceDealNumRatioApi sinaPriceDealNumRatioApi;
     @Autowired
-    SinaRealtimePriceDealNumRatio sinaRealtimePriceDealNumRatio;
+    SinaRealtimePriceDealNumRatioApi sinaRealtimePriceDealNumRatioApi;
     @Autowired
-    SinaRealtimeDealInfo sinaRealtimeDealInfo;
+    SinaRealtimeDealInfoApi sinaRealtimeDealInfoApi;
     @Autowired
-    SinaFQPriceLine sinaFQPriceLine;
-
-    /**
-     * 股票实例
-     */
-    private StockVo stockVo = new StockVo("603383", StockConst.SM_SH);//顶点软件
-//    private StockVo stockVo = new StockVo("300033", StockConst.SM_SZ);//同花顺
-//    private StockVo stockVo = new StockVo("00700", StockConst.SM_HK);//腾讯
+    SinaFQPriceLineApi sinaFQPriceLineApi;
 
     /**
      * 分钟粒度成交信息测试
@@ -43,7 +35,7 @@ class SinaApiTests {
     void minuteKLineDataTest() {
         Integer scale = 5;
         Integer dataLen = 120;
-        System.out.println(sinaMinuteKLineData.kLineDataList(stockVo, scale, dataLen));
+        System.out.println(sinaMinuteKLineDataApi.kLineDataList(TEST_SH_STOCK, scale, dataLen));
     }
 
     /**
@@ -53,7 +45,7 @@ class SinaApiTests {
     void priceDealNumRatioTest() {
         String startDate = "2020-11-04";
         String endDate = "2020-11-04";
-        System.out.println(sinaPriceDealNumRatio.priceDealNumRatio(stockVo, startDate, endDate));
+        System.out.println(sinaPriceDealNumRatioApi.priceDealNumRatio(TEST_SH_STOCK, startDate, endDate));
     }
 
     /**
@@ -61,7 +53,7 @@ class SinaApiTests {
      */
     @Test
     void realtimePriceDealNumRatioTest() {
-        System.out.println(sinaRealtimePriceDealNumRatio.priceDealNumRatio(stockVo));
+        System.out.println(sinaRealtimePriceDealNumRatioApi.priceDealNumRatio(TEST_SH_STOCK));
     }
 
     /**
@@ -69,7 +61,7 @@ class SinaApiTests {
      */
     @Test
     void realtimeDealInfoTest() {
-        System.out.println(sinaRealtimeDealInfo.realtimeDealInfo(stockVo));
+        System.out.println(sinaRealtimeDealInfoApi.realtimeDealInfo(TEST_SH_STOCK));
     }
 
     /**
@@ -77,6 +69,6 @@ class SinaApiTests {
      */
     @Test
     void fqPriceLineTest() {
-        System.out.println(sinaFQPriceLine.fqPriceLine(stockVo, StockConst.SFQ_BEFORE));
+        System.out.println(sinaFQPriceLineApi.fqPriceLine(TEST_SH_STOCK, StockConst.SFQ_BEFORE));
     }
 }

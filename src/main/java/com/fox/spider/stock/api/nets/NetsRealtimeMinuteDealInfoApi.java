@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2020/11/6 15:21
  */
 @Component
-public class NetsRealtimeMinuteDealInfo extends NetsBaseApi {
+public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
     /**
      * 日志
      */

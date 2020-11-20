@@ -23,7 +23,7 @@ import java.util.*;
  * @date 2020/11/6 15:34
  */
 @Component
-public class NetsFQTotalClosePrice extends NetsBaseApi {
+public class NetsFQTotalClosePriceApi extends NetsBaseApi {
     /**
      * 日志
      */

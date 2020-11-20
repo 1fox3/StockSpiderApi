@@ -104,12 +104,14 @@ public class StockMarketStatusUtil {
      * @return
      */
     public static Integer currentSMStatus(Integer stockMarket) {
-        if (StockConst.SM_A_LIST.contains(stockMarket)) {
-            return aCurrentSMStatus();
+        switch (stockMarket) {
+            case StockConst.SM_SH:
+            case StockConst.SM_SZ:
+                return aCurrentSMStatus();
+            case StockConst.SM_HK:
+                return hkCurrentSMStatus();
+            default:
+                return StockMarketStatusConst.UNKNOWN;
         }
-        if (StockConst.SM_HK.equals(stockMarket)) {
-            return hkCurrentSMStatus();
-        }
-        return StockMarketStatusConst.UNKNOWN;
     }
 }
