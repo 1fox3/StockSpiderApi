@@ -29,7 +29,7 @@ public class HKApiTests extends StockApiBaseTests {
     @Test
     void stockInfoTest() {
         System.out.println(hkStockInfoApi.stockInfo(
-                hkStockInfoApi.apiToken(),TEST_HK_STOCK_CODE
+                hkStockInfoApi.apiToken(), TEST_HK_STOCK_CODE
         ));
     }
 }

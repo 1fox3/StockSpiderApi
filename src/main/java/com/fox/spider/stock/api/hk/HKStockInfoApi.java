@@ -86,9 +86,8 @@ public class HKStockInfoApi extends HKBaseApi {
             HttpResponseDto httpResponse = httpUtil.request();
             String responseContent = httpResponse.getContent();
             int startPos = responseContent.indexOf('(');
-            int endPos = responseContent.indexOf(')');
+            int endPos = responseContent.lastIndexOf(')');
             responseContent = responseContent.substring(startPos + 1, endPos);
-            System.out.println(responseContent);
             if (null != responseContent && !responseContent.equals("")) {
                 JSONObject baseObject = JSONObject.fromObject(responseContent);
                 if (!baseObject.isNullObject() && baseObject.containsKey("data")) {
@@ -105,7 +104,7 @@ public class HKStockInfoApi extends HKBaseApi {
                         if (dataObject.containsKey("chairman")) {
                             hkStockInfoPo.setStockLegal(dataObject.getString("chairman"));
                         }
-                        if (dataObject.containsKey("amt_os")) {
+                        if (dataObject.containsKey("amt_os") && !dataObject.getString("amt_os").isEmpty()) {
                             hkStockInfoPo.setStockTotalEquity(
                                     Double.valueOf(
                                             dataObject.getString("amt_os").replace(",", "")
@@ -140,6 +139,7 @@ public class HKStockInfoApi extends HKBaseApi {
                 }
             }
         } catch (Exception e) {
+            logger.error(stockCode);
             logger.error(e.getMessage());
         }
         return null;

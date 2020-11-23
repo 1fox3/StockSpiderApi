@@ -353,54 +353,58 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                 if (responseArr[i].equals("")) {
                     continue;
                 }
+                String valueStr = responseArr[i];
+                if ("INF".equals(valueStr)) {
+                    valueStr = "0";
+                }
                 if (0 == i) {
-                    sinaRealtimeDealInfoPo.setStockNameEn(responseArr[i]);
+                    sinaRealtimeDealInfoPo.setStockNameEn(valueStr);
                 }
                 if (1 == i) {
-                    sinaRealtimeDealInfoPo.setStockName(responseArr[i].replace(" ", ""));
+                    sinaRealtimeDealInfoPo.setStockName(valueStr.replace(" ", ""));
                 }
                 if (2 == i) {
-                    sinaRealtimeDealInfoPo.setOpenPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setOpenPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (3 == i) {
-                    sinaRealtimeDealInfoPo.setPreClosePrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setPreClosePrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (4 == i) {
-                    sinaRealtimeDealInfoPo.setHighestPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setHighestPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (5 == i) {
-                    sinaRealtimeDealInfoPo.setLowestPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setLowestPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (6 == i) {
-                    sinaRealtimeDealInfoPo.setCurrentPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setCurrentPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (7 == i) {
-                    sinaRealtimeDealInfoPo.setUptickPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setUptickPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (8 == i) {
-                    sinaRealtimeDealInfoPo.setUptickRate(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setUptickRate(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (9 == i) {
-                    sinaRealtimeDealInfoPo.setMinuteLowestPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setMinuteLowestPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (10 == i) {
-                    sinaRealtimeDealInfoPo.setMinuteHighestPrice(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setMinuteHighestPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (11 == i) {
-                    sinaRealtimeDealInfoPo.setDealMoney(BigDecimalUtil.initPrice(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setDealMoney(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (12 == i) {
-                    sinaRealtimeDealInfoPo.setDealNum(Long.valueOf(responseArr[i]));
+                    sinaRealtimeDealInfoPo.setDealNum(Long.valueOf(valueStr));
                 }
                 if (13 <= i && 16 >= i) {
                     //i==15或16时，近期的最高，底价，时间范围不定，暂时观察至少是近一年的
-                    unknownList.add(responseArr[i]);
+                    unknownList.add(valueStr);
                 }
                 if (17 == i) {
-                    sinaRealtimeDealInfoPo.setDt(responseArr[i].replace("/", "-"));
+                    sinaRealtimeDealInfoPo.setDt(valueStr.replace("/", "-"));
                 }
                 if (18 == i) {
-                    sinaRealtimeDealInfoPo.setTime(responseArr[i] + ":00");
+                    sinaRealtimeDealInfoPo.setTime(valueStr + ":00");
                 }
             }
             if (unknownList.size() > 0) {

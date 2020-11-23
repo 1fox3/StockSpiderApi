@@ -49,7 +49,6 @@ public class SZStockInfoApi extends SZBaseApi {
             httpUtil.setParam("secCode", stockCode);
             HttpResponseDto httpResponse = httpUtil.request();
             String responseContent = httpResponse.getContent();
-            System.out.println(responseContent);
             if (null != responseContent && !responseContent.equals("")) {
                 JSONObject baseObject = JSONObject.fromObject(responseContent);
                 if (!baseObject.isNullObject() && baseObject.containsKey("data")) {
