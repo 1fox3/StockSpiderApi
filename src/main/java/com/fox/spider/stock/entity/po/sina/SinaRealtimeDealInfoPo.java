@@ -2,6 +2,7 @@ package com.fox.spider.stock.entity.po.sina;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
  * @date 2020/11/5 14:33
  */
 @Data
-public class SinaRealtimeDealInfoPo {
+public class SinaRealtimeDealInfoPo implements Serializable {
     /**
      * 股票代码
      */

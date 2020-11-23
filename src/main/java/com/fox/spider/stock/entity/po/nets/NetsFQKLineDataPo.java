@@ -2,6 +2,7 @@ package com.fox.spider.stock.entity.po.nets;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 2020/11/6 14:42
  */
 @Data
-public class NetsFQKLineDataPo {
+public class NetsFQKLineDataPo implements Serializable {
     /**
      * 股票代码
      */

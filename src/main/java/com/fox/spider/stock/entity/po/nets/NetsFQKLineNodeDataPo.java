@@ -2,6 +2,7 @@ package com.fox.spider.stock.entity.po.nets;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
  * @date 2020/11/6 14:42
  */
 @Data
-public class NetsFQKLineNodeDataPo {
+public class NetsFQKLineNodeDataPo implements Serializable {
     /**
      * 日期
      */

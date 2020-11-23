@@ -2,6 +2,7 @@ package com.fox.spider.stock.entity.po.nets;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2020/11/6 15:22
  */
 @Data
-public class NetsRealtimeMinuteDealInfoPo {
+public class NetsRealtimeMinuteDealInfoPo implements Serializable {
     /**
      * 股票代码
      */

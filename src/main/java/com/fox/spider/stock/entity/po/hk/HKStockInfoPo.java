@@ -3,6 +3,8 @@ package com.fox.spider.stock.entity.po.hk;
 import com.fox.spider.stock.constant.StockConst;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 港股股票信息
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  * @date 2020/11/20 14:57
  */
 @Data
-public class HKStockInfoPo {
+public class HKStockInfoPo implements Serializable {
     /**
      * 股票所属交易所
      */

@@ -3,6 +3,8 @@ package com.fox.spider.stock.entity.po.sh;
 import com.fox.spider.stock.constant.StockConst;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 沪市股票信息
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  * @date 2020/11/19 18:14
  */
 @Data
-public class SHStockInfoPo {
+public class SHStockInfoPo implements Serializable {
     /**
      * 股票所属交易所
      */

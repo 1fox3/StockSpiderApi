@@ -2,6 +2,7 @@ package com.fox.spider.stock.entity.po.sina;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
  * @date 2020/11/5 14:11
  */
 @Data
-public class SinaPriceDealNumRatioPo {
+public class SinaPriceDealNumRatioPo implements Serializable {
     /**
      * 价格
      */

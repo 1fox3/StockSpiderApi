@@ -3,6 +3,8 @@ package com.fox.spider.stock.entity.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 股票基本信息
  *
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class StockVo {
+public class StockVo implements Serializable {
     /**
      * 股票代码
      */
