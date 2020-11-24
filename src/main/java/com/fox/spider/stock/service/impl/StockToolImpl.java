@@ -1,24 +1,28 @@
-package com.fox.spider.stock.util;
+package com.fox.spider.stock.service.impl;
 
 import com.fox.spider.stock.api.sina.SinaRealtimeDealInfoApi;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.po.sina.SinaRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.vo.StockVo;
+import com.fox.spider.stock.service.StockToolService;
+import org.springframework.stereotype.Service;
 
 /**
- * 股票相关工具类
+ * 股票工具服务实现
  *
  * @author lusongsong
- * @date 2020/11/9 15:27
+ * @date 2020/11/24 13:40
  */
-public class StockUtil {
+@Service
+public class StockToolImpl implements StockToolService {
     /**
-     * 获取股市最新交易日
+     * 获取最新交易日
      *
      * @param stockMarket
      * @return
      */
-    public static String lastDealDate(Integer stockMarket) {
+    @Override
+    public String lastDealDate(Integer stockMarket) {
         SinaRealtimeDealInfoApi sinaRealtimeDealInfoApi = new SinaRealtimeDealInfoApi();
         if (StockConst.DEMO_STOCK.containsKey(stockMarket)) {
             StockVo stockVo = StockConst.DEMO_STOCK.get(stockMarket);

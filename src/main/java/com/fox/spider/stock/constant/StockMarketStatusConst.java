@@ -1,7 +1,8 @@
 package com.fox.spider.stock.constant;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.fox.spider.stock.util.DateUtil;
+
+import java.util.*;
 
 /**
  * 股市交易状态常量
@@ -87,4 +88,102 @@ public class StockMarketStatusConst {
         put(NOON, DESC_NOON);
         put(SOON, DESC_SOON);
     }};
+
+    /**
+     * 可以交易的状态列表
+     */
+    public static final List<Integer> CAN_DEAL_STATUS_LIST = Arrays.asList(OPEN, COMPETE);
+
+    /**
+     * A股交易日不同时间交易状态
+     *
+     * @return
+     */
+    public static Integer aTimeSMStatus() {
+        Calendar calendar = DateUtil.currentTime();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        if (0 <= hour && hour < 9) {
+            return StockMarketStatusConst.INIT;
+        } else if (9 <= hour && hour < 10) {
+            if (0 <= minutes && minutes < 15) {
+                return StockMarketStatusConst.INIT;
+            } else if (15 <= minutes && minutes < 25) {
+                return StockMarketStatusConst.COMPETE;
+            } else if (25 <= minutes && minutes < 30) {
+                return StockMarketStatusConst.SOON;
+            } else {
+                return StockMarketStatusConst.OPEN;
+            }
+        } else if (10 <= hour && hour < 11) {
+            return StockMarketStatusConst.OPEN;
+        } else if (11 <= hour && hour < 12) {
+            if (30 > minutes) {
+                return StockMarketStatusConst.OPEN;
+            } else {
+                return StockMarketStatusConst.NOON;
+            }
+        } else if (12 <= hour && hour < 13) {
+            return StockMarketStatusConst.NOON;
+        } else if (13 <= hour && hour < 15) {
+            return StockMarketStatusConst.OPEN;
+        } else {
+            return StockMarketStatusConst.CLOSE;
+        }
+    }
+
+    /**
+     * 港股交易日不同时间交易状态
+     *
+     * @return
+     */
+    public static Integer hkTimeSMStatus() {
+        Calendar calendar = DateUtil.currentTime();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        if (0 <= hour && hour < 9) {
+            return StockMarketStatusConst.INIT;
+        } else if (9 <= hour && hour < 10) {
+            if (0 <= minutes && minutes < 30) {
+                return StockMarketStatusConst.COMPETE;
+            } else {
+                return StockMarketStatusConst.OPEN;
+            }
+        } else if (10 <= hour && hour < 12) {
+            return StockMarketStatusConst.OPEN;
+        } else if (12 <= hour && hour < 13) {
+            return StockMarketStatusConst.NOON;
+        } else if (13 <= hour && hour < 16) {
+            return StockMarketStatusConst.OPEN;
+        } else if (16 <= hour && hour < 17) {
+            if (0 <= minutes && minutes < 10) {
+                return StockMarketStatusConst.COMPETE;
+            } else {
+                return StockMarketStatusConst.CLOSE;
+            }
+        } else {
+            return StockMarketStatusConst.CLOSE;
+        }
+    }
+
+    /**
+     * 获取股市交易日不同时间交易状态
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static Integer timeSMStatus(Integer stockMarket) {
+        if (null == stockMarket) {
+            return null;
+        }
+        switch (stockMarket) {
+            case StockConst.SM_SH:
+            case StockConst.SM_SZ:
+                return aTimeSMStatus();
+            case StockConst.SM_HK:
+                return hkTimeSMStatus();
+            default:
+                return null;
+        }
+    }
 }

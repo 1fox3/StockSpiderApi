@@ -255,4 +255,16 @@ public class DateUtil {
     public static Integer getDayInWeekNum(String dateStr, String format) throws ParseException {
         return weekList.indexOf(getDayInWeekStr(dateStr, format));
     }
+
+    /**
+     * 获取当前时间
+     *
+     * @return
+     */
+    public static Calendar currentTime() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
 }
