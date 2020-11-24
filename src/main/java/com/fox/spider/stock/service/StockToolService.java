@@ -1,5 +1,9 @@
 package com.fox.spider.stock.service;
 
+import com.fox.spider.stock.entity.vo.StockVo;
+
+import java.math.BigDecimal;
+
 /**
  * 股票相关工具
  *
@@ -14,4 +18,13 @@ public interface StockToolService {
      * @return
      */
     String lastDealDate(Integer stockMarket);
+
+    /**
+     * 获取涨跌幅限制
+     *
+     * @param stockVo
+     * @param stockName
+     * @return
+     */
+    BigDecimal limitRate(StockVo stockVo, String stockName);
 }

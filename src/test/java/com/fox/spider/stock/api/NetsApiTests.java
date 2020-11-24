@@ -1,5 +1,6 @@
-package com.fox.spider.stock;
+package com.fox.spider.stock.api;
 
+import com.fox.spider.stock.StockBaseTests;
 import com.fox.spider.stock.api.nets.NetsDayDealInfoApi;
 import com.fox.spider.stock.api.nets.NetsFQKLineDataApi;
 import com.fox.spider.stock.api.nets.NetsFQTotalClosePriceApi;
@@ -16,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/11/6 14:07
  */
 @SpringBootTest
-class NetsApiTests extends StockApiBaseTests {
+class NetsApiTests extends StockBaseTests {
     /**
      * 网易接口
      */

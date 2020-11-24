@@ -1,5 +1,6 @@
-package com.fox.spider.stock;
+package com.fox.spider.stock.api;
 
+import com.fox.spider.stock.StockBaseTests;
 import com.fox.spider.stock.api.hk.HKStockInfoApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/11/20 15:15
  */
 @SpringBootTest
-public class HKApiTests extends StockApiBaseTests {
+public class HKApiTests extends StockBaseTests {
     /**
      * 港股测试股票编码
      */

@@ -28,7 +28,13 @@ public class SinaBaseApi {
     /**
      * 当日无交易的状态
      */
-    public static List<String> noDealStatusList = Arrays.asList("-3", "03", "-2", "07");
+    public static final List<String> NO_DEAL_STATUS_LIST = Arrays.asList(
+            "-3",
+            "03",
+            //新股未上市
+            "-2",
+            "07"
+    );
 
     /**
      * 处理json字符串的key无双引号的问题

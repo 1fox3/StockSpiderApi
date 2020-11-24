@@ -1,5 +1,6 @@
-package com.fox.spider.stock;
+package com.fox.spider.stock.api;
 
+import com.fox.spider.stock.StockBaseTests;
 import com.fox.spider.stock.api.sina.*;
 import com.fox.spider.stock.constant.StockConst;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2020/11/6 14:05
  */
 @SpringBootTest
-class SinaApiTests extends StockApiBaseTests {
+class SinaApiTests extends StockBaseTests {
     /**
      * 新浪接口
      */

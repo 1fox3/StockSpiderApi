@@ -9,7 +9,7 @@ import com.fox.spider.stock.entity.vo.StockVo;
  * @author lusongsong
  * @date 2020/11/20 14:16
  */
-public class StockApiBaseTests {
+public class StockBaseTests {
     /**
      * 沪市测试股票（顶点软件）
      */

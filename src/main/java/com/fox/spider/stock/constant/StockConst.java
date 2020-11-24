@@ -362,6 +362,10 @@ public class StockConst {
      * 新上市股票名称标识
      */
     public static final String STOCK_NAME_NEW = "N";
+    /**
+     * 创业板不设涨跌幅限制的标识(除首日外)
+     */
+    public static final String STOCK_NAME_C = "C";
 
     /**
      * 前复权
