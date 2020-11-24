@@ -119,7 +119,9 @@ public class SinaRealtimeDealInfoPo implements Serializable {
             return BigDecimal.ZERO;
         }
         //波动
-        BigDecimal surgeRate = highestPrice.subtract(lowestPrice).divide(preClosePrice, 4, RoundingMode.HALF_UP);
+        BigDecimal surgeRate = highestPrice.subtract(lowestPrice)
+                .multiply(new BigDecimal(100))
+                .divide(preClosePrice, 4, RoundingMode.HALF_UP);
         return surgeRate;
     }
 }
