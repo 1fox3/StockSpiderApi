@@ -396,9 +396,18 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                 if (12 == i) {
                     sinaRealtimeDealInfoPo.setDealNum(Long.valueOf(valueStr));
                 }
-                if (13 <= i && 16 >= i) {
+                if (13 == i) {
                     //i==15或16时，近期的最高，底价，时间范围不定，暂时观察至少是近一年的
                     unknownList.add(valueStr);
+                }
+                if (14 == i) {
+                    sinaRealtimeDealInfoPo.setDividendYield(new BigDecimal(valueStr).setScale(4, RoundingMode.HALF_UP));
+                }
+                if (15 == i) {
+                    sinaRealtimeDealInfoPo.setFiftyTwoWeekHighestPrice(BigDecimalUtil.initPrice(valueStr));
+                }
+                if (16 == i) {
+                    sinaRealtimeDealInfoPo.setFiftyTwoWeekLowestPrice(BigDecimalUtil.initPrice(valueStr));
                 }
                 if (17 == i) {
                     sinaRealtimeDealInfoPo.setDt(valueStr.replace("/", "-"));

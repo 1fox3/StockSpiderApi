@@ -101,6 +101,18 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     String dealStatus;
     /**
+     * 52周最高价
+     */
+    BigDecimal fiftyTwoWeekHighestPrice;
+    /**
+     * 51周最低阶
+     */
+    BigDecimal fiftyTwoWeekLowestPrice;
+    /**
+     * 股息率
+     */
+    BigDecimal dividendYield;
+    /**
      * 未知的数据列表
      */
     List<String> unknownKeyList;
