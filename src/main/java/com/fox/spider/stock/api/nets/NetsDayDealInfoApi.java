@@ -28,6 +28,10 @@ public class NetsDayDealInfoApi extends NetsBaseApi {
      */
     private Logger logger = LoggerFactory.getLogger(getClass());
     /**
+     * 无效的收盘价，表示停牌，无交易
+     */
+    private static final String ILLEGAL_CLOSE_PRICE = "0.0";
+    /**
      * 样例链接
      * http://quotes.money.163.com/service/chddata.html?code=0603383&start=20200101&end=20200501&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP
      */
@@ -115,6 +119,9 @@ public class NetsDayDealInfoApi extends NetsBaseApi {
                     netsDayDealInfoPo.setStockName(subStr.replace(" ", ""));
                     break;
                 case 3:
+                    if (ILLEGAL_CLOSE_PRICE.equals(subStr)) {
+                        return null;
+                    }
                     netsDayDealInfoPo.setClosePrice(BigDecimal.valueOf(Double.valueOf(subStr)));
                     break;
                 case 4:
