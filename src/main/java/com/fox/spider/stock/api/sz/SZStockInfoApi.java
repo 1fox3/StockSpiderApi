@@ -1,9 +1,9 @@
 package com.fox.spider.stock.api.sz;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.sz.SZStockInfoPo;
 import com.fox.spider.stock.util.HttpUtil;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -50,8 +50,8 @@ public class SZStockInfoApi extends SZBaseApi {
             HttpResponseDto httpResponse = httpUtil.request();
             String responseContent = httpResponse.getContent();
             if (null != responseContent && !responseContent.equals("")) {
-                JSONObject baseObject = JSONObject.fromObject(responseContent);
-                if (!baseObject.isNullObject() && baseObject.containsKey("data")) {
+                JSONObject baseObject = JSONObject.parseObject(responseContent);
+                if (!baseObject.isEmpty() && baseObject.containsKey("data")) {
                     JSONObject dataObject = baseObject.getJSONObject("data");
                     if (null != dataObject) {
                         SZStockInfoPo szStockInfoPo = new SZStockInfoPo();

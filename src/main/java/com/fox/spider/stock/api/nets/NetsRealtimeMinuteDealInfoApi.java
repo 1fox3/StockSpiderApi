@@ -1,5 +1,7 @@
 package com.fox.spider.stock.api.nets;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.nets.NetsRealtimeMinuteDealInfoPo;
 import com.fox.spider.stock.entity.po.nets.NetsRealtimeMinuteNodeDataPo;
@@ -7,8 +9,6 @@ import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
 import com.fox.spider.stock.util.DateUtil;
 import com.fox.spider.stock.util.HttpUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -75,9 +75,9 @@ public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
 
         try {
             NetsRealtimeMinuteDealInfoPo netsRealtimeMinuteDealInfoPo = new NetsRealtimeMinuteDealInfoPo();
-            JSONObject responseObject = JSONObject.fromObject(response);
+            JSONObject responseObject = JSONObject.parseObject(response);
             if (responseObject.containsKey("count")) {
-                netsRealtimeMinuteDealInfoPo.setNodeCount(responseObject.getInt("count"));
+                netsRealtimeMinuteDealInfoPo.setNodeCount(responseObject.getInteger("count"));
             }
             if (responseObject.containsKey("symbol")) {
                 netsRealtimeMinuteDealInfoPo.setStockCode(responseObject.getString("symbol"));

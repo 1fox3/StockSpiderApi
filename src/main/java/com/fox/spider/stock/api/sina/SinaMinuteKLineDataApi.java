@@ -1,13 +1,13 @@
 package com.fox.spider.stock.api.sina;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.sina.SinaMinuteKLineDataPo;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
 import com.fox.spider.stock.util.HttpUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -89,7 +89,7 @@ public class SinaMinuteKLineDataApi extends SinaBaseApi {
         List<SinaMinuteKLineDataPo> list = new ArrayList<>();
         try {
             //其中的这个data是接口传来的json数据
-            JSONArray jsonArray = JSONArray.fromObject(response);
+            JSONArray jsonArray = JSONArray.parseArray(response);
             int arrayLen = jsonArray.size();
             String day, time;
             Integer timePos;

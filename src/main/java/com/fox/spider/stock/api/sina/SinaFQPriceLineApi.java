@@ -1,22 +1,19 @@
 package com.fox.spider.stock.api.sina;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
 import com.fox.spider.stock.util.HttpUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 股票不同复权类型价格线
@@ -86,13 +83,12 @@ public class SinaFQPriceLineApi extends SinaBaseApi {
         //给json字符串的key加双引号
         response = this.handleJsonStr(response);
         try {
-            JSONArray jsonArray = JSONArray.fromObject(response);
+            JSONArray jsonArray = JSONArray.parseArray(response);
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
             JSONObject dataObject = (JSONObject) jsonObject.get("data");
-            Iterator<String> dataKeyIterator = dataObject.keys();
+            Set<String> dataKeySet = dataObject.keySet();
             Map<String, BigDecimal> map = new TreeMap<>();
-            while (dataKeyIterator.hasNext()) {
-                String key = dataKeyIterator.next();
+            for (String key : dataKeySet) {
                 BigDecimal value = BigDecimalUtil.initPrice(dataObject.getString(key));
                 if (key.startsWith("_")) {
                     key = key.substring(1);

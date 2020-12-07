@@ -1,6 +1,6 @@
 package com.fox.spider.stock.entity.dto.http;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
@@ -64,7 +64,7 @@ public class HttpResponseDto {
      */
     public <T> T getContent(Class<T> clz) throws IOException {
         if (StringUtils.isNotBlank(content)) {
-            return new ObjectMapper().readValue(content, clz);
+            return JSONObject.parseObject(content, clz);
         }
         return null;
     }

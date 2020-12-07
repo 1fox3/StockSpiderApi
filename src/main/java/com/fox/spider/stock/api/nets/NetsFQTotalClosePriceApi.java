@@ -1,20 +1,22 @@
 package com.fox.spider.stock.api.nets;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
 import com.fox.spider.stock.util.DateUtil;
 import com.fox.spider.stock.util.HttpUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 股票不同日期类型复权收盘价
@@ -90,7 +92,7 @@ public class NetsFQTotalClosePriceApi extends NetsBaseApi {
      */
     private Map<String, BigDecimal> handleResponse(String response) {
         try {
-            JSONObject responseObj = JSONObject.fromObject(response);
+            JSONObject responseObj = JSONObject.parseObject(response);
             JSONArray closePriceArr = (JSONArray) responseObj.get("closes");
             JSONArray dateArr = (JSONArray) responseObj.get("times");
             if (null == closePriceArr || null == dateArr || closePriceArr.isEmpty() || dateArr.isEmpty()) {
