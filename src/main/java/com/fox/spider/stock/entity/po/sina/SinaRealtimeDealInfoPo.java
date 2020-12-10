@@ -17,6 +17,10 @@ import java.util.Map;
 @Data
 public class SinaRealtimeDealInfoPo implements Serializable {
     /**
+     * 股票交易所
+     */
+    Integer stockMarket;
+    /**
      * 股票代码
      */
     String stockCode;

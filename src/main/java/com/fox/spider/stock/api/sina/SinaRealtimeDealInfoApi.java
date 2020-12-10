@@ -114,11 +114,12 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
             for (int i = 0; i < responseArr.length; i++) {
                 if (!responseArr[i].equals("")) {
                     String stockCodeStr = getStockCodeStr(responseArr[i]);
-                    String stockCode = getStockCode(stockCodeStr);
+                    StockVo stockVo = getStock(stockCodeStr);
                     SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo = getSinaRealtimeDealInfo(responseArr[i]);
-                    if (null != stockCode && !stockCode.isEmpty() && null != sinaRealtimeDealInfoPo) {
-                        sinaRealtimeDealInfoPo.setStockCode(stockCode);
-                        sinaRealtimeDealInfoPoHashMap.put(stockCode, sinaRealtimeDealInfoPo);
+                    if (null != stockVo && null != sinaRealtimeDealInfoPo) {
+                        sinaRealtimeDealInfoPo.setStockCode(stockVo.getStockCode());
+                        sinaRealtimeDealInfoPo.setStockMarket(stockVo.getStockMarket());
+                        sinaRealtimeDealInfoPoHashMap.put(stockVo.getStockCode(), sinaRealtimeDealInfoPo);
                     }
                 }
             }
@@ -142,18 +143,23 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
     }
 
     /**
-     * 获取返回中的股票编号
+     * 获取股票信息
      *
      * @param stockCodeStr
      * @return
      */
-    private static String getStockCode(String stockCodeStr) {
-        for (String sinaStockPreCode : SinaBaseApi.stockMarketPYMap.values()) {
-            if (stockCodeStr.startsWith(sinaStockPreCode)) {
-                stockCodeStr = stockCodeStr.replace(sinaStockPreCode, "");
+    private static StockVo getStock(String stockCodeStr) {
+        if (null == stockCodeStr || stockCodeStr.isEmpty()) {
+            return null;
+        }
+        for (Integer stockMarket : SinaBaseApi.stockMarketPYMap.keySet()) {
+            String stockMarketPY = SinaBaseApi.stockMarketPYMap.get(stockMarket);
+            if (stockCodeStr.startsWith(stockMarketPY)) {
+                String stockCode = stockCodeStr.replace(stockMarketPY, "");
+                return new StockVo(stockCode, stockMarket);
             }
         }
-        return stockCodeStr;
+        return null;
     }
 
     /**
