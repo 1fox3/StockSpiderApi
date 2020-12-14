@@ -221,12 +221,12 @@ public class DateUtil {
      * @return
      * @throws ParseException
      */
-    public static boolean compare(String first, String second, String format) throws ParseException {
+    public static int compare(String first, String second, String format) throws ParseException {
         simpleDateFormat.applyPattern(format);
         Date firstDate, secondDate;
         firstDate = simpleDateFormat.parse(first);
         secondDate = simpleDateFormat.parse(second);
-        return firstDate.before(secondDate);
+        return firstDate.compareTo(secondDate);
     }
 
     /**
