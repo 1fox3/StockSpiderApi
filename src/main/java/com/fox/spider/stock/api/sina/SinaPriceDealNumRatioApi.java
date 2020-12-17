@@ -93,7 +93,7 @@ public class SinaPriceDealNumRatioApi extends SinaBaseApi {
             String e = matcher.group(1);
             //匹配价格
             if (1 == i) {
-                sinaPriceDealNumRatioPo.setPrice(BigDecimalUtil.initPrice(Double.valueOf(e)));
+                sinaPriceDealNumRatioPo.setPrice(BigDecimalUtil.initPrice(e));
             }
             //匹配成交量
             if (2 == i) {
@@ -103,7 +103,7 @@ public class SinaPriceDealNumRatioApi extends SinaBaseApi {
             if (3 == i) {
                 //去掉占比的百分号
                 e = e.replace("%", "");
-                sinaPriceDealNumRatioPo.setRatio(BigDecimalUtil.initPrice(Double.valueOf(e)));
+                sinaPriceDealNumRatioPo.setRatio(BigDecimalUtil.initPrice(e));
                 list.add(sinaPriceDealNumRatioPo);
                 sinaPriceDealNumRatioPo = null;
                 i = 0;

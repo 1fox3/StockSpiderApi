@@ -157,12 +157,12 @@ public class NetsFQKLineDataApi extends NetsBaseApi {
                                         singleArr.getString(0), DateUtil.DATE_FORMAT_2, DateUtil.DATE_FORMAT_1
                                 )
                         );
-                        netsFQKLineNodeDataPo.setOpenPrice(BigDecimalUtil.initPrice(singleArr.getDouble(1)));
-                        netsFQKLineNodeDataPo.setClosePrice(BigDecimalUtil.initPrice(singleArr.getDouble(2)));
-                        netsFQKLineNodeDataPo.setHighestPrice(BigDecimalUtil.initPrice(singleArr.getDouble(3)));
-                        netsFQKLineNodeDataPo.setLowestPrice(BigDecimalUtil.initPrice(singleArr.getDouble(4)));
+                        netsFQKLineNodeDataPo.setOpenPrice(BigDecimalUtil.initPrice(singleArr.getString(1)));
+                        netsFQKLineNodeDataPo.setClosePrice(BigDecimalUtil.initPrice(singleArr.getString(2)));
+                        netsFQKLineNodeDataPo.setHighestPrice(BigDecimalUtil.initPrice(singleArr.getString(3)));
+                        netsFQKLineNodeDataPo.setLowestPrice(BigDecimalUtil.initPrice(singleArr.getString(4)));
                         netsFQKLineNodeDataPo.setDealNum(singleArr.getLong(5));
-                        netsFQKLineNodeDataPo.setUptickRate(BigDecimalUtil.initPrice(singleArr.getDouble(6)));
+                        netsFQKLineNodeDataPo.setUptickRate(BigDecimalUtil.initPrice(singleArr.getString(6)));
                         nodeList.add(netsFQKLineNodeDataPo);
                     }
                 }

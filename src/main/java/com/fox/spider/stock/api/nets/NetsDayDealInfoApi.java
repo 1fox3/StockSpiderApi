@@ -122,40 +122,40 @@ public class NetsDayDealInfoApi extends NetsBaseApi {
                     if (ILLEGAL_CLOSE_PRICE.equals(subStr)) {
                         return null;
                     }
-                    netsDayDealInfoPo.setClosePrice(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setClosePrice(new BigDecimal(subStr));
                     break;
                 case 4:
-                    netsDayDealInfoPo.setHighestPrice(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setHighestPrice(new BigDecimal(subStr));
                     break;
                 case 5:
-                    netsDayDealInfoPo.setLowestPrice(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setLowestPrice(new BigDecimal(subStr));
                     break;
                 case 6:
-                    netsDayDealInfoPo.setOpenPrice(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setOpenPrice(new BigDecimal(subStr));
                     break;
                 case 7:
-                    netsDayDealInfoPo.setPreClosePrice(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setPreClosePrice(new BigDecimal(subStr));
                     break;
                 case 8:
-                    netsDayDealInfoPo.setUptickPrice(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setUptickPrice(new BigDecimal(subStr));
                     break;
                 case 9:
-                    netsDayDealInfoPo.setUptickRate(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setUptickRate(new BigDecimal(subStr));
                     break;
                 case 10:
-                    netsDayDealInfoPo.setTurnoverRate(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setTurnoverRate(new BigDecimal(subStr));
                     break;
                 case 11:
                     netsDayDealInfoPo.setDealNum(Long.valueOf(subStr));
                     break;
                 case 12:
-                    netsDayDealInfoPo.setDealMoney(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setDealMoney(new BigDecimal(subStr));
                     break;
                 case 13:
-                    netsDayDealInfoPo.setTotalValue(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setTotalValue(new BigDecimal(subStr));
                     break;
                 case 14:
-                    netsDayDealInfoPo.setCircValue(BigDecimal.valueOf(Double.valueOf(subStr)));
+                    netsDayDealInfoPo.setCircValue(new BigDecimal(subStr));
                     break;
             }
         }

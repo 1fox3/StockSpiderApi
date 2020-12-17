@@ -12,16 +12,6 @@ import java.math.RoundingMode;
 public class BigDecimalUtil {
     /**
      * 获取价格BigDecimal类对象
-     *
-     * @param price
-     * @return
-     */
-    public static BigDecimal initPrice(double price) {
-        return new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 获取价格BigDecimal类对象
      * @param price
      * @return
      */

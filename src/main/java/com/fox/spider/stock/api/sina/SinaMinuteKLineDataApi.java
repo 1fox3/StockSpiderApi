@@ -102,10 +102,10 @@ public class SinaMinuteKLineDataApi extends SinaBaseApi {
                 day = -1 != timePos ? day.substring(0, timePos) : day;
                 stockDealEntity.setDt(day);
                 stockDealEntity.setTime(time);
-                stockDealEntity.setOpenPrice(BigDecimalUtil.initPrice(jsonObject.getDouble("open")));
-                stockDealEntity.setHighestPrice(BigDecimalUtil.initPrice(jsonObject.getDouble("high")));
-                stockDealEntity.setLowestPrice(BigDecimalUtil.initPrice(jsonObject.getDouble("low")));
-                stockDealEntity.setClosePrice(BigDecimalUtil.initPrice(jsonObject.getDouble("close")));
+                stockDealEntity.setOpenPrice(BigDecimalUtil.initPrice(jsonObject.getString("open")));
+                stockDealEntity.setHighestPrice(BigDecimalUtil.initPrice(jsonObject.getString("high")));
+                stockDealEntity.setLowestPrice(BigDecimalUtil.initPrice(jsonObject.getString("low")));
+                stockDealEntity.setClosePrice(BigDecimalUtil.initPrice(jsonObject.getString("close")));
                 stockDealEntity.setDealNum(jsonObject.getLong("volume"));
                 list.add(stockDealEntity);
             }

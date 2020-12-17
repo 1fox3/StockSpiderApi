@@ -110,8 +110,8 @@ public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
                         NetsRealtimeMinuteNodeDataPo netsRealtimeMinuteNodeDataPo = new NetsRealtimeMinuteNodeDataPo();
                         String timeStr = noteArr.getString(0);
                         netsRealtimeMinuteNodeDataPo.setTime(timeStr.substring(0, 2) + ":" + timeStr.substring(2, 4));
-                        netsRealtimeMinuteNodeDataPo.setPrice(BigDecimalUtil.initPrice(noteArr.getDouble(1)));
-                        netsRealtimeMinuteNodeDataPo.setAvgPrice(BigDecimalUtil.initPrice(noteArr.getDouble(2)));
+                        netsRealtimeMinuteNodeDataPo.setPrice(BigDecimalUtil.initPrice(noteArr.getString(1)));
+                        netsRealtimeMinuteNodeDataPo.setAvgPrice(BigDecimalUtil.initPrice(noteArr.getString(2)));
                         netsRealtimeMinuteNodeDataPo.setDealNum(noteArr.getLong(3));
                         nodeList.add(netsRealtimeMinuteNodeDataPo);
                     }

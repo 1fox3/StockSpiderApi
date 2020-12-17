@@ -109,7 +109,7 @@ public class NetsFQTotalClosePriceApi extends NetsBaseApi {
                                     DateUtil.DATE_FORMAT_2,
                                     DateUtil.DATE_FORMAT_1
                             ),
-                            BigDecimalUtil.initPrice(closePriceArr.getDouble(i))
+                            BigDecimalUtil.initPrice(closePriceArr.getString(i))
                     );
                 }
             }

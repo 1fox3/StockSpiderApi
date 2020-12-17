@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,10 +74,10 @@ public class SZStockInfoApi extends SZBaseApi {
                             szStockInfoPo.setStockCode(dataObject.getString(typeStr + "gdm"));
                         }
                         if (dataObject.containsKey(typeStr + "gzgb")) {
-                            szStockInfoPo.setStockTotalEquity(Double.valueOf(dataObject.getString(typeStr + "gzgb").replace(",", "")));
+                            szStockInfoPo.setStockTotalEquity(new BigDecimal(dataObject.getString(typeStr + "gzgb").replace(",", "")));
                         }
                         if (dataObject.containsKey(typeStr + "gltgb")) {
-                            szStockInfoPo.setStockCircEquity(Double.valueOf(dataObject.getString(typeStr + "gltgb").replace(",", "")));
+                            szStockInfoPo.setStockCircEquity(new BigDecimal(dataObject.getString(typeStr + "gltgb").replace(",", "")));
                         }
                         if (dataObject.containsKey(typeStr + "gssrq")) {
                             szStockInfoPo.setStockOnDate(dataObject.getString(typeStr + "gssrq"));

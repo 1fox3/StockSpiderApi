@@ -4,6 +4,7 @@ import com.fox.spider.stock.constant.StockConst;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 深市股票信息
@@ -48,11 +49,11 @@ public class SZStockInfoPo implements Serializable {
     /**
      * 股票总股本(万)
      */
-    Double stockTotalEquity = 0.0;
+    BigDecimal stockTotalEquity = BigDecimal.ZERO;
     /**
      * 股票流通股本(万)
      */
-    Double stockCircEquity = 0.0;
+    BigDecimal stockCircEquity = BigDecimal.ZERO;
     /**
      * 股票公司所在地理位置区域
      */
