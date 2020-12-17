@@ -173,7 +173,6 @@ public class NetsDayDealInfoApi extends NetsBaseApi {
     public List<NetsDayDealInfoPo> dayDealInfo(StockVo stockVo, String startDate, String endDate) {
         List<NetsDayDealInfoPo> netsDayDealInfoPoList = new ArrayList<>();
         try {
-
             String csvFileUrl = csvUrl(stockVo, startDate, endDate);
             HttpUtil httpUtil = new HttpUtil();
             httpUtil.setUrl(csvFileUrl).setOriCharset("GBK");

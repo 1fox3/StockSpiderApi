@@ -2,6 +2,7 @@ package com.fox.spider.stock.constant;
 
 import com.fox.spider.stock.entity.vo.StockCategoryVo;
 import com.fox.spider.stock.entity.vo.StockVo;
+import com.fox.spider.stock.util.DateUtil;
 
 import java.util.*;
 
@@ -423,6 +424,18 @@ public class StockConst {
     }};
 
     /**
+     * 股市开始日期
+     */
+    public static final Map<Integer, String> SM_START_DATE = new HashMap<Integer, String>() {{
+        //沪市
+        put(SM_SH, "1990-12-19");
+        //深市
+        put(SM_SZ, "1991-04-03");
+        //香港
+        put(SM_HK, "2006-09-11");
+    }};
+
+    /**
      * 获取股市名称
      *
      * @param stockMarket
@@ -475,5 +488,29 @@ public class StockConst {
             }
         }
         return new StockCategoryVo();
+    }
+
+    /**
+     * 股市开始日期
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static String stockMarketStartDate(Integer stockMarket) {
+        return SM_START_DATE.containsKey(stockMarket) ? SM_START_DATE.get(stockMarket) : null;
+    }
+
+    /**
+     * 股市开始年份
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static String stockMarketStartYear(Integer stockMarket) {
+        if (SM_START_DATE.containsKey(stockMarket)) {
+            String startDate = SM_START_DATE.get(stockMarket);
+            return DateUtil.dateStrFormatChange(startDate, DateUtil.DATE_FORMAT_1, DateUtil.YEAR_FORMAT_1);
+        }
+        return null;
     }
 }
