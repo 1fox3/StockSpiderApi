@@ -391,6 +391,27 @@ public class StockConst {
     public static final int DT_MONTH = 3;
 
     /**
+     * 涨跌类型（平）
+     */
+    public static final int UPTICK_TYPE_FLAT = 1;
+    /**
+     * 涨跌类型（涨）
+     */
+    public static final int UPTICK_TYPE_UP = 2;
+    /**
+     * 涨跌类型（涨停）
+     */
+    public static final int UPTICK_TYPE_LIMIT_UP = 3;
+    /**
+     * 涨跌类型（跌）
+     */
+    public static final int UPTICK_TYPE_DOWN = 4;
+    /**
+     * 涨跌类型（跌停）
+     */
+    public static final int UPTICK_TYPE_LIMIT_DOWN = 5;
+
+    /**
      * A股重点指数
      */
     public static final List<StockVo> TOP_INDEX_A = Arrays.asList(
