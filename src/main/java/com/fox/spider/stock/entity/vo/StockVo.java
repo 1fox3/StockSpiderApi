@@ -19,7 +19,7 @@ public class StockVo implements Serializable {
      */
     String stockCode;
     /**
-     * 股票所属交易锁
+     * 股票所属交易所
      */
     Integer stockMarket;
 }

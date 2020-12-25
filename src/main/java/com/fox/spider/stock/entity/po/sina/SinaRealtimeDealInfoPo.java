@@ -87,11 +87,11 @@ public class SinaRealtimeDealInfoPo implements Serializable {
     /**
      * 排名靠前的5个买方报价
      */
-    LinkedHashMap<BigDecimal, Integer> buyPriceMap;
+    LinkedHashMap<BigDecimal, Long> buyPriceMap;
     /**
      * 排名靠前的5个卖方报价
      */
-    LinkedHashMap<BigDecimal, Integer> sellPriceMap;
+    LinkedHashMap<BigDecimal, Long> sellPriceMap;
     /**
      * 当前日期
      */

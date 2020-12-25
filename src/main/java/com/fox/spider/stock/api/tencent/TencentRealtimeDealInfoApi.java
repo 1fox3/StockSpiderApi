@@ -161,12 +161,13 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
         if (null == stockVo || null == dealInfoStr || dealInfoStr.isEmpty()) {
             return null;
         }
+        String[] dealInfoArr = dealInfoStr.split(DEAL_INFO_SPLIT_STR);
         switch (stockVo.getStockMarket()) {
             case StockConst.SM_SH:
             case StockConst.SM_SZ:
-                return getADealInfo(dealInfoStr);
+                return getADealInfo(stockVo, dealInfoArr);
             case StockConst.SM_HK:
-                return getHKDealInfo(dealInfoStr);
+                return getHKDealInfo(stockVo, dealInfoArr);
             default:
                 return null;
         }
@@ -175,22 +176,22 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
     /**
      * 获取A股交易信息
      *
-     * @param dealInfoStr
+     * @param stockVo
+     * @param dealInfoArr
      * @return
      */
-    private TencentRealtimeDealInfoPo getADealInfo(String dealInfoStr) {
-        if (null == dealInfoStr || dealInfoStr.isEmpty()) {
+    private TencentRealtimeDealInfoPo getADealInfo(StockVo stockVo, String[] dealInfoArr) {
+        if (null == dealInfoArr) {
             return null;
         }
 
-        String[] dealInfoArr = dealInfoStr.split(DEAL_INFO_SPLIT_STR);
         TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo = new TencentRealtimeDealInfoPo();
         List<String> unknownList = new ArrayList<>();
         //售价
         BigDecimal price = null;
         //售量
-        Integer num = null;
-        LinkedHashMap<BigDecimal, Integer> priceMap = new LinkedHashMap(5);
+        Long num = null;
+        LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap(5);
         for (int i = 1; i < dealInfoArr.length; i++) {
             String dealInfo = dealInfoArr[i];
             if (null == dealInfo || dealInfo.isEmpty()) {
@@ -208,10 +209,10 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
                 tencentRealtimeDealInfoPo.setOpenPrice(BigDecimalUtil.initPrice(dealInfo));
             } else if (6 == i || 36 == i) {
                 //手
-                tencentRealtimeDealInfoPo.setDealNum(Long.valueOf(dealInfo));
+                tencentRealtimeDealInfoPo.setDealNum(handleDealNum(stockVo, dealInfo));
             } else if (9 <= i && 28 >= i) {
                 if (0 == i % 2) {
-                    num = Integer.valueOf(dealInfo);
+                    num = handleDealNum(stockVo, dealInfo);
                     priceMap.put(price, num);
                     if (i == 18) {
                         tencentRealtimeDealInfoPo.setBuyPriceMap(priceMap);
@@ -248,7 +249,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
                             break;
                         case 1:
                             //手
-                            tencentRealtimeDealInfoPo.setDealNum(Long.valueOf(dealArr[j]));
+                            tencentRealtimeDealInfoPo.setDealNum(handleDealNum(stockVo, dealArr[j]));
                             break;
                         case 2:
                             tencentRealtimeDealInfoPo.setDealMoney(BigDecimalUtil.initPrice(dealArr[j]));
@@ -313,22 +314,22 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
     /**
      * 获取港股交易信息
      *
-     * @param dealInfoStr
+     * @param stockVo
+     * @param dealInfoArr
      * @return
      */
-    private TencentRealtimeDealInfoPo getHKDealInfo(String dealInfoStr) {
-        if (null == dealInfoStr || dealInfoStr.isEmpty()) {
+    private TencentRealtimeDealInfoPo getHKDealInfo(StockVo stockVo, String[] dealInfoArr) {
+        if (null == dealInfoArr) {
             return null;
         }
 
-        String[] dealInfoArr = dealInfoStr.split(DEAL_INFO_SPLIT_STR);
         TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo = new TencentRealtimeDealInfoPo();
         List<String> unknownList = new ArrayList<>();
         //售价
         BigDecimal price = null;
         //售量
-        Integer num = null;
-        LinkedHashMap<BigDecimal, Integer> priceMap = new LinkedHashMap(5);
+        Long num = null;
+        LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap(5);
         for (int i = 1; i < dealInfoArr.length; i++) {
             String dealInfo = dealInfoArr[i];
             if (null == dealInfo || dealInfo.isEmpty()) {
@@ -346,10 +347,10 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
                 tencentRealtimeDealInfoPo.setOpenPrice(BigDecimalUtil.initPrice(dealInfo));
             } else if (6 == i || 29 == i || 36 == i) {
                 //股数
-                tencentRealtimeDealInfoPo.setDealNum(new BigDecimal(dealInfo).longValue());
+                tencentRealtimeDealInfoPo.setDealNum(handleDealNum(stockVo, dealInfo));
             } else if (9 <= i && 28 >= i) {
                 if (0 == i % 2) {
-                    num = Integer.valueOf(dealInfo);
+                    num = handleDealNum(stockVo, dealInfo);
                     priceMap.put(price, num);
                     if (i == 18) {
                         tencentRealtimeDealInfoPo.setBuyPriceMap(priceMap);

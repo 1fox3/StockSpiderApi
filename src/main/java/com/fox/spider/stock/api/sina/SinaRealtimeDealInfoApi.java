@@ -197,8 +197,8 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
             if (null == responseArr || responseArr.length == 0) {
                 return sinaRealtimeDealInfoPo;
             }
-            LinkedHashMap<BigDecimal, Integer> priceMap = new LinkedHashMap<>();
-            Integer num = null;
+            LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap<>();
+            Long num = null;
             BigDecimal price = null;
             List<String> unknownList = new LinkedList<>();
             for (int i = 0; i < responseArr.length; i++) {
@@ -253,7 +253,7 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                 }
                 if (10 <= i && 29 >= i) {
                     if (0 == i % 2) {
-                        num = Integer.valueOf(responseArr[i]);
+                        num = Long.valueOf(responseArr[i]);
                     } else {
                         price = BigDecimalUtil.initPrice(responseArr[i]);
                         priceMap.put(price, num);

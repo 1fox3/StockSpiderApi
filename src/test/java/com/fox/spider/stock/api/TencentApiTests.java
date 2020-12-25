@@ -2,6 +2,7 @@ package com.fox.spider.stock.api;
 
 import com.fox.spider.stock.StockBaseTests;
 import com.fox.spider.stock.api.tencent.TencentRealtimeDealInfoApi;
+import com.fox.spider.stock.api.tencent.TencentRealtimeMinuteKLineApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,8 @@ public class TencentApiTests extends StockBaseTests {
      */
     @Autowired
     TencentRealtimeDealInfoApi tencentRealtimeDealInfoApi;
+    @Autowired
+    TencentRealtimeMinuteKLineApi tencentRealtimeMinuteKLineApi;
 
     /**
      * 实时交易数据测试
@@ -34,5 +37,13 @@ public class TencentApiTests extends StockBaseTests {
                         TEST_HK_STOCK
                 ))
         );
+    }
+
+    /**
+     * 实时交易分钟线图测试
+     */
+    @Test
+    void realtimeMinuteKLineTest() {
+        System.out.println(tencentRealtimeMinuteKLineApi.realtimeMinuteKLine(TEST_SH_STOCK));
     }
 }

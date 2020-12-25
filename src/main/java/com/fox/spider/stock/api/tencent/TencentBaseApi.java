@@ -3,6 +3,7 @@ package com.fox.spider.stock.api.tencent;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.vo.StockVo;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -80,4 +81,21 @@ public class TencentBaseApi {
         return null;
     }
 
+    /**
+     * 处理成交量数值差异
+     * @param stockVo
+     * @param dealNum
+     * @return
+     */
+    public static Long handleDealNum(StockVo stockVo, String dealNum) {
+        if (null == stockVo || null == stockVo.getStockMarket()
+                || !StockConst.SM_ALL.contains(stockVo.getStockMarket())) {
+            return null;
+        }
+        Long longDealNum = new BigDecimal(dealNum).longValue();
+        if (StockConst.SM_A_LIST.contains(stockVo.getStockMarket())) {
+            longDealNum *= 100;
+        }
+        return longDealNum;
+    }
 }

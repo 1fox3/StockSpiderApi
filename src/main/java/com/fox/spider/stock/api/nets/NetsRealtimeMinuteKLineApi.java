@@ -3,7 +3,7 @@ package com.fox.spider.stock.api.nets;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
-import com.fox.spider.stock.entity.po.nets.NetsRealtimeMinuteDealInfoPo;
+import com.fox.spider.stock.entity.po.nets.NetsRealtimeMinuteKLinePo;
 import com.fox.spider.stock.entity.po.nets.NetsRealtimeMinuteNodeDataPo;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2020/11/6 15:21
  */
 @Component
-public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
+public class NetsRealtimeMinuteKLineApi extends NetsBaseApi {
     /**
      * 日志
      */
@@ -45,7 +45,7 @@ public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
      * @param stockVo
      * @return
      */
-    public NetsRealtimeMinuteDealInfoPo realtimeMinuteKLine(StockVo stockVo) {
+    public NetsRealtimeMinuteKLinePo realtimeMinuteKLine(StockVo stockVo) {
         if (null == stockVo || null == stockVo.getStockMarket() || null == stockVo.getStockCode()) {
             return null;
         }
@@ -68,31 +68,31 @@ public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
      * @param response
      * @return
      */
-    private NetsRealtimeMinuteDealInfoPo handleResponse(String response) {
+    private NetsRealtimeMinuteKLinePo handleResponse(String response) {
         if (null == response || response.isEmpty()) {
             return null;
         }
 
         try {
-            NetsRealtimeMinuteDealInfoPo netsRealtimeMinuteDealInfoPo = new NetsRealtimeMinuteDealInfoPo();
+            NetsRealtimeMinuteKLinePo netsRealtimeMinuteKLinePo = new NetsRealtimeMinuteKLinePo();
             JSONObject responseObject = JSONObject.parseObject(response);
             if (responseObject.containsKey("count")) {
-                netsRealtimeMinuteDealInfoPo.setNodeCount(responseObject.getInteger("count"));
+                netsRealtimeMinuteKLinePo.setNodeCount(responseObject.getInteger("count"));
             }
             if (responseObject.containsKey("symbol")) {
-                netsRealtimeMinuteDealInfoPo.setStockCode(responseObject.getString("symbol"));
+                netsRealtimeMinuteKLinePo.setStockCode(responseObject.getString("symbol"));
             }
             if (responseObject.containsKey("name")) {
-                netsRealtimeMinuteDealInfoPo.setStockName(responseObject.getString("name").replace(" ", ""));
+                netsRealtimeMinuteKLinePo.setStockName(responseObject.getString("name").replace(" ", ""));
             }
             if (responseObject.containsKey("yestclose")) {
-                netsRealtimeMinuteDealInfoPo.setPreClosePrice(new BigDecimal(responseObject.getDouble("yestclose")));
+                netsRealtimeMinuteKLinePo.setPreClosePrice(new BigDecimal(responseObject.getDouble("yestclose")));
             }
             if (responseObject.containsKey("lastVolume")) {
-                netsRealtimeMinuteDealInfoPo.setDealNum(responseObject.getLong("lastVolume"));
+                netsRealtimeMinuteKLinePo.setDealNum(responseObject.getLong("lastVolume"));
             }
             if (responseObject.containsKey("date")) {
-                netsRealtimeMinuteDealInfoPo.setDt(
+                netsRealtimeMinuteKLinePo.setDt(
                         DateUtil.dateStrFormatChange(
                                 responseObject.getString("date"),
                                 DateUtil.DATE_FORMAT_2,
@@ -117,10 +117,10 @@ public class NetsRealtimeMinuteDealInfoApi extends NetsBaseApi {
                     }
                 }
                 if (nodeList.size() > 0) {
-                    netsRealtimeMinuteDealInfoPo.setKlineData(nodeList);
+                    netsRealtimeMinuteKLinePo.setKlineData(nodeList);
                 }
             }
-            return netsRealtimeMinuteDealInfoPo;
+            return netsRealtimeMinuteKLinePo;
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

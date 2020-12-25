@@ -1,4 +1,4 @@
-package com.fox.spider.stock.entity.po.nets;
+package com.fox.spider.stock.entity.po.tencent;
 
 import lombok.Data;
 
@@ -7,13 +7,17 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 网易实时交易分钟线图数据
+ * 股票实时交易分钟线图数据
  *
  * @author lusongsong
- * @date 2020/11/6 15:22
+ * @date 2020/12/25 14:58
  */
 @Data
-public class NetsRealtimeMinuteDealInfoPo implements Serializable {
+public class TencentRealtimeMinuteKLinePo implements Serializable {
+    /**
+     * 股票所属交易所
+     */
+    Integer stockMarket;
     /**
      * 股票代码
      */
@@ -41,5 +45,5 @@ public class NetsRealtimeMinuteDealInfoPo implements Serializable {
     /**
      * 分钟粒度的成交信息
      */
-    List<NetsRealtimeMinuteNodeDataPo> klineData;
+    List<TencentRealtimeMinuteNodeDataPo> klineData;
 }
