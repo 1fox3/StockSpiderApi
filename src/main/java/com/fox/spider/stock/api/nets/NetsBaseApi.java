@@ -3,7 +3,9 @@ package com.fox.spider.stock.api.nets;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.vo.StockVo;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,21 +16,25 @@ import java.util.Map;
  */
 public class NetsBaseApi {
     /**
+     * 网易支持的股市列表
+     */
+    public static final List<Integer> NETS_SUPPORT_SM = Arrays.asList(
+            StockConst.SM_SH,
+            StockConst.SM_SZ
+    );
+    /**
      * 股市对应的拼音
      */
-    public static Map<Integer, String> stockMarketPYMap = new HashMap<Integer, String>() {{
+    public static final Map<Integer, String> NETS_SM_PY_MAP = new HashMap<Integer, String>() {{
         put(StockConst.SM_SH, "hs");//沪
         put(StockConst.SM_SZ, "hs");//深
-//        put(StockConst.SM_HK, "hk");//港
     }};
-
     /**
      * 股票id对应的前缀
      */
-    public static Map<Integer, String> stockMarketPreCodeMap = new HashMap<Integer, String>() {{
+    public static final Map<Integer, String> NETS_SM_PRE_CODE_MAP = new HashMap<Integer, String>() {{
         put(StockConst.SM_SH, "0");//沪
         put(StockConst.SM_SZ, "1");//深
-//        put(StockConst.SM_HK, "");//港
     }};
 
     /**
@@ -38,8 +44,8 @@ public class NetsBaseApi {
      * @return
      */
     public static String netsStockMarketPY(Integer stockMarket) {
-        return NetsBaseApi.stockMarketPYMap.containsKey(stockMarket) ?
-                NetsBaseApi.stockMarketPYMap.get(stockMarket) : "";
+        return NetsBaseApi.NETS_SM_PY_MAP.containsKey(stockMarket) ?
+                NetsBaseApi.NETS_SM_PY_MAP.get(stockMarket) : "";
     }
 
     /**
@@ -49,8 +55,8 @@ public class NetsBaseApi {
      * @return
      */
     protected static String netsStockPreCode(Integer stockMarket) {
-        return NetsBaseApi.stockMarketPreCodeMap.containsKey(stockMarket) ?
-                NetsBaseApi.stockMarketPreCodeMap.get(stockMarket) : "";
+        return NetsBaseApi.NETS_SM_PRE_CODE_MAP.containsKey(stockMarket) ?
+                NetsBaseApi.NETS_SM_PRE_CODE_MAP.get(stockMarket) : "";
     }
 
     /**

@@ -1,21 +1,20 @@
-package com.fox.spider.stock.entity.po.sina;
+package com.fox.spider.stock.entity.po.tencent;
 
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * 股票实时成交信息
+ * 腾讯股票实时成交信息
  *
  * @author lusongsong
- * @date 2020/11/5 14:33
+ * @date 2020/12/24 14:17
  */
 @Data
-public class SinaRealtimeDealInfoPo implements Serializable {
+public class TencentRealtimeDealInfoPo implements Serializable {
     /**
      * 股票交易所
      */
@@ -24,6 +23,14 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      * 股票代码
      */
     String stockCode;
+    /**
+     * 当前日期
+     */
+    String dt;
+    /**
+     * 当前时间
+     */
+    String time;
     /**
      * 股票名称
      */
@@ -41,6 +48,10 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     BigDecimal openPrice;
     /**
+     * 均价
+     */
+    BigDecimal avgPrice;
+    /**
      * 今日最高价
      */
     BigDecimal highestPrice;
@@ -53,6 +64,14 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     BigDecimal preClosePrice;
     /**
+     * 涨停价
+     */
+    BigDecimal upLimitPrice;
+    /**
+     * 跌停价
+     */
+    BigDecimal downLimitPrice;
+    /**
      * 价格涨幅
      */
     BigDecimal uptickPrice;
@@ -61,21 +80,9 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     BigDecimal uptickRate;
     /**
-     * 竞买价
+     * 振幅
      */
-    BigDecimal competeBuyPrice;
-    /**
-     * 竞卖价
-     */
-    BigDecimal competeSellPrice;
-    /**
-     * 当前分钟最高价
-     */
-    BigDecimal minuteHighestPrice;
-    /**
-     * 当前分钟最低价
-     */
-    BigDecimal minuteLowestPrice;
+    BigDecimal surgeRate;
     /**
      * 成交股数
      */
@@ -85,6 +92,14 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     BigDecimal dealMoney;
     /**
+     * 盘后成交股数
+     */
+    Long closeDealNum;
+    /**
+     * 盘后成交金额
+     */
+    BigDecimal closeDealMoney;
+    /**
      * 排名靠前的5个买方报价
      */
     LinkedHashMap<BigDecimal, Integer> buyPriceMap;
@@ -93,17 +108,41 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     LinkedHashMap<BigDecimal, Integer> sellPriceMap;
     /**
-     * 当前日期
+     * 总市值
      */
-    String dt;
+    BigDecimal totalValue;
     /**
-     * 当前时间
+     * 流通值
      */
-    String time;
+    BigDecimal circValue;
     /**
-     * 交易状态
+     * 换手率
      */
-    String dealStatus;
+    BigDecimal turnoverRate;
+    /**
+     * 市净率
+     */
+    BigDecimal pbrRate;
+    /**
+     * 市盈率(TTM)
+     */
+    BigDecimal perRate;
+    /**
+     * 市盈率(动)
+     */
+    BigDecimal perDynamicRate;
+    /**
+     * 市盈率(静)
+     */
+    BigDecimal perStaticRate;
+    /**
+     * 量比
+     */
+    BigDecimal qrrRate;
+    /**
+     * 委差
+     */
+    Long committeeSent;
     /**
      * 52周最高价
      */
@@ -113,31 +152,7 @@ public class SinaRealtimeDealInfoPo implements Serializable {
      */
     BigDecimal fiftyTwoWeekLowestPrice;
     /**
-     * 股息率
-     */
-    BigDecimal dividendYield;
-    /**
      * 未知的数据列表
      */
     List<String> unknownKeyList;
-
-    /**
-     * 获取波动
-     *
-     * @return
-     */
-    public BigDecimal getSurgeRate() {
-        if (null == preClosePrice || null == highestPrice || null == lowestPrice
-                || 0 == preClosePrice.compareTo(BigDecimal.ZERO)
-                || 0 == highestPrice.compareTo(BigDecimal.ZERO)
-                || 0 == lowestPrice.compareTo(BigDecimal.ZERO)
-        ) {
-            return BigDecimal.ZERO;
-        }
-        //波动
-        BigDecimal surgeRate = highestPrice.subtract(lowestPrice)
-                .multiply(new BigDecimal(100))
-                .divide(preClosePrice, 4, RoundingMode.HALF_UP);
-        return surgeRate;
-    }
 }

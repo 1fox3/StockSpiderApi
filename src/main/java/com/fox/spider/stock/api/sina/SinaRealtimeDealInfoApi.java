@@ -29,19 +29,23 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
      */
     private Logger logger = LoggerFactory.getLogger(getClass());
     /**
-     * 接口链接
+     * 接口地址
      * http://hq.sinajs.cn/list=sh603383,sh601519
      */
+    private static String API_URL = "http://hq.sinajs.cn/list=";
     /**
-     * 接口地址
+     * 股票代码拼接字符串
      */
-    private static String apiUrl = "http://hq.sinajs.cn/list=";
+    private static String STOCK_CODE_SPLIT_STR = ",";
     /**
      * 返回数据跟分割符
      */
-    private static String stockInfoSplitStr = ";";
-    private static String infoSplitStr = "\"";
-    private static String dataSplitStr = ",";
+    private static String RESPONSE_SPLIT_STR = ";";
+    /**
+     * 交易数据分割符
+     */
+    private static String DEAL_INFO_SPLIT_STR = "\"";
+    
 
     /**
      * 返回样例,最后一个字段解释（00:正常,03:停牌,07:临时停牌,-2:未上市新股, -3:(未知明确含义，但当日无交易)）
@@ -61,7 +65,7 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
         }
         List<StockVo> stockVoList = Arrays.asList(stockVo);
         Map<String, SinaRealtimeDealInfoPo> sinaRealtimeDealInfoPoMap = this.batchRealtimeDealInfo(stockVoList);
-        if (sinaRealtimeDealInfoPoMap.containsKey(stockVo.getStockCode())) {
+        if (null != sinaRealtimeDealInfoPoMap && sinaRealtimeDealInfoPoMap.containsKey(stockVo.getStockCode())) {
             return sinaRealtimeDealInfoPoMap.get(stockVo.getStockCode());
         }
         return null;
@@ -75,9 +79,9 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
      */
     public Map<String, SinaRealtimeDealInfoPo> batchRealtimeDealInfo(List<StockVo> stockVoList) {
         if (null == stockVoList || stockVoList.isEmpty()) {
-            return new HashMap<>(0);
+            return null;
         }
-        HashMap<String, SinaRealtimeDealInfoPo> sinaRealtimeDealInfoPoHashMap = new HashMap<>(stockVoList.size());
+
         try {
             List<String> sinaStockCodeList = new ArrayList<>();
             for (StockVo stockVo : stockVoList) {
@@ -87,10 +91,10 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                 }
             }
             if (sinaStockCodeList.isEmpty()) {
-                return new HashMap<>(0);
+                return null;
             }
             HttpUtil httpUtil = new HttpUtil();
-            httpUtil.setUrl(apiUrl + StringUtils.join(sinaStockCodeList, dataSplitStr))
+            httpUtil.setUrl(API_URL + StringUtils.join(sinaStockCodeList, STOCK_CODE_SPLIT_STR))
                     .setOriCharset(HttpUtil.CHARSET_GBK)
                     .setErrorOriCharset(HttpUtil.CHARSET_UTF8);
             HttpResponseDto httpResponse = httpUtil.request();
@@ -98,7 +102,7 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
-        return sinaRealtimeDealInfoPoHashMap;
+        return null;
     }
 
     /**
@@ -108,18 +112,37 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
      * @return
      */
     private Map<String, SinaRealtimeDealInfoPo> handleResponse(String response) {
-        if (response.contains(stockInfoSplitStr)) {
-            String[] responseArr = response.trim().split(stockInfoSplitStr);
+        if (response.contains(RESPONSE_SPLIT_STR)) {
+            String[] responseArr = response.trim().split(RESPONSE_SPLIT_STR);
             HashMap<String, SinaRealtimeDealInfoPo> sinaRealtimeDealInfoPoHashMap = new HashMap<>(responseArr.length);
             for (int i = 0; i < responseArr.length; i++) {
                 if (!responseArr[i].equals("")) {
                     String stockCodeStr = getStockCodeStr(responseArr[i]);
                     StockVo stockVo = getStock(stockCodeStr);
-                    SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo = getSinaRealtimeDealInfo(responseArr[i]);
-                    if (null != stockVo && null != sinaRealtimeDealInfoPo) {
-                        sinaRealtimeDealInfoPo.setStockCode(stockVo.getStockCode());
-                        sinaRealtimeDealInfoPo.setStockMarket(stockVo.getStockMarket());
-                        sinaRealtimeDealInfoPoHashMap.put(stockVo.getStockCode(), sinaRealtimeDealInfoPo);
+                    int startIndex = response.indexOf(DEAL_INFO_SPLIT_STR);
+                    int endIndex = response.lastIndexOf(DEAL_INFO_SPLIT_STR);
+                    if (startIndex > 0 && endIndex > 0) {
+                        response = response.substring(startIndex + 1, endIndex);
+                        if (response.contains(STOCK_CODE_SPLIT_STR)) {
+                            String[] dealInfoArr = response.split(STOCK_CODE_SPLIT_STR);
+                            SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo;
+                            switch (stockVo.getStockMarket()) {
+                                case StockConst.SM_SH:
+                                case StockConst.SM_SZ:
+                                    sinaRealtimeDealInfoPo = aDealInfo(dealInfoArr);
+                                    break;
+                                case StockConst.SM_HK:
+                                    sinaRealtimeDealInfoPo = hkDealInfo(dealInfoArr);
+                                    break;
+                                default:
+                                    sinaRealtimeDealInfoPo = null;
+                            }
+                            if (null != stockVo && null != sinaRealtimeDealInfoPo) {
+                                sinaRealtimeDealInfoPo.setStockCode(stockVo.getStockCode());
+                                sinaRealtimeDealInfoPo.setStockMarket(stockVo.getStockMarket());
+                                sinaRealtimeDealInfoPoHashMap.put(stockVo.getStockCode(), sinaRealtimeDealInfoPo);
+                            }
+                        }
                     }
                 }
             }
@@ -152,56 +175,14 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
         if (null == stockCodeStr || stockCodeStr.isEmpty()) {
             return null;
         }
-        for (Integer stockMarket : SinaBaseApi.stockMarketPYMap.keySet()) {
-            String stockMarketPY = SinaBaseApi.stockMarketPYMap.get(stockMarket);
+        for (Integer stockMarket : SinaBaseApi.SINA_SM_PY_MAP.keySet()) {
+            String stockMarketPY = SinaBaseApi.SINA_SM_PY_MAP.get(stockMarket);
             if (stockCodeStr.startsWith(stockMarketPY)) {
                 String stockCode = stockCodeStr.replace(stockMarketPY, "");
                 return new StockVo(stockCode, stockMarket);
             }
         }
         return null;
-    }
-
-    /**
-     * 获取股票集市
-     *
-     * @param stockCodeStr
-     * @return
-     */
-    private static Integer getStockMarket(String stockCodeStr) {
-        for (Integer stockMarket : SinaBaseApi.stockMarketPYMap.keySet()) {
-            if (stockCodeStr.startsWith(SinaBaseApi.stockMarketPYMap.get(stockMarket))) {
-                return stockMarket;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 获取股票数据实体
-     *
-     * @param response
-     * @return
-     */
-    private SinaRealtimeDealInfoPo getSinaRealtimeDealInfo(String response) {
-        SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo = new SinaRealtimeDealInfoPo();
-        String stockCodeStr = getStockCodeStr(response);
-        int startIndex = response.indexOf(infoSplitStr);
-        int endIndex = response.lastIndexOf(infoSplitStr);
-        if (startIndex > 0 && endIndex > 0) {
-            response = response.substring(startIndex + 1, endIndex);
-            if (response.contains(dataSplitStr)) {
-                String[] responseArr = response.split(dataSplitStr);
-                if (StockConst.SM_HK == getStockMarket(stockCodeStr)) {
-                    sinaRealtimeDealInfoPo = hkDealInfo(responseArr);
-                } else {
-                    sinaRealtimeDealInfoPo = aDealInfo(responseArr);
-                }
-            } else {
-                return null;
-            }
-        }
-        return sinaRealtimeDealInfoPo;
     }
 
     /**
@@ -216,11 +197,9 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
             if (null == responseArr || responseArr.length == 0) {
                 return sinaRealtimeDealInfoPo;
             }
-            Map<BigDecimal, Map<String, BigDecimal>> sellList = new LinkedHashMap<>(5);
-            List<BigDecimal> sellPriceList = new ArrayList<>();
-            Map<BigDecimal, Map<String, BigDecimal>> buyList = new LinkedHashMap<>(5);
-            List<BigDecimal> buyPriceList = new ArrayList<>();
-            Map<String, BigDecimal> temp = new LinkedHashMap<>();
+            LinkedHashMap<BigDecimal, Integer> priceMap = new LinkedHashMap<>();
+            Integer num = null;
+            BigDecimal price = null;
             List<String> unknownList = new LinkedList<>();
             for (int i = 0; i < responseArr.length; i++) {
                 if (responseArr[i].equals("")) {
@@ -274,17 +253,17 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                 }
                 if (10 <= i && 29 >= i) {
                     if (0 == i % 2) {
-                        temp.put("num", new BigDecimal(responseArr[i]));
+                        num = Integer.valueOf(responseArr[i]);
                     } else {
-                        temp.put("price", BigDecimalUtil.initPrice(responseArr[i]));
-                        if (10 <= i && 19 >= i) {
-                            buyList.put(temp.get("price"), temp);
-                            buyPriceList.add(temp.get("price"));
-                        } else {
-                            sellList.put(temp.get("price"), temp);
-                            sellPriceList.add(temp.get("price"));
+                        price = BigDecimalUtil.initPrice(responseArr[i]);
+                        priceMap.put(price, num);
+                        if (i == 19) {
+                            sinaRealtimeDealInfoPo.setBuyPriceMap(priceMap);
+                            priceMap = new LinkedHashMap<>(5);
                         }
-                        temp = new LinkedHashMap<>();
+                        if (i == 29) {
+                            sinaRealtimeDealInfoPo.setSellPriceMap(priceMap);
+                        }
                     }
                 }
                 if (30 == i) {
@@ -299,22 +278,6 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                 if (33 <= i) {
                     unknownList.add(responseArr[i]);
                 }
-            }
-            if (sellList.size() > 0) {
-                Collections.reverse(sellPriceList);
-                List<Map<String, BigDecimal>> list = new LinkedList<>();
-                for (BigDecimal price : sellPriceList) {
-                    list.add(sellList.get(price));
-                }
-                sinaRealtimeDealInfoPo.setSellPriceList(list);
-            }
-            if (buyList.size() > 0) {
-                Collections.sort(buyPriceList);
-                List<Map<String, BigDecimal>> list = new LinkedList<>();
-                for (BigDecimal price : buyPriceList) {
-                    list.add(0, buyList.get(price));
-                }
-                sinaRealtimeDealInfoPo.setBuyPriceList(list);
             }
             if (unknownList.size() > 0) {
                 sinaRealtimeDealInfoPo.setUnknownKeyList(unknownList);

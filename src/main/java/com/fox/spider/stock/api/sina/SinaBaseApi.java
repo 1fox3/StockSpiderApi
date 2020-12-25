@@ -17,9 +17,17 @@ import java.util.Map;
  */
 public class SinaBaseApi {
     /**
+     * 网易支持的股市列表
+     */
+    public static final List<Integer> SINA_SUPPORT_SM = Arrays.asList(
+            StockConst.SM_SH,
+            StockConst.SM_SZ,
+            StockConst.SM_HK
+    );
+    /**
      * 股票交易所对应的拼音
      */
-    public static Map<Integer, String> stockMarketPYMap = new HashMap<Integer, String>() {{
+    public static Map<Integer, String> SINA_SM_PY_MAP = new HashMap<Integer, String>() {{
         put(StockConst.SM_SH, "sh");//沪
         put(StockConst.SM_SZ, "sz");//深
         put(StockConst.SM_HK, "hk");//港
@@ -53,8 +61,8 @@ public class SinaBaseApi {
      * @return
      */
     public static String sinaStockMarketPY(Integer stockMarket) {
-        return SinaBaseApi.stockMarketPYMap.containsKey(stockMarket) ?
-                SinaBaseApi.stockMarketPYMap.get(stockMarket) : "hs";
+        return SinaBaseApi.SINA_SM_PY_MAP.containsKey(stockMarket) ?
+                SinaBaseApi.SINA_SM_PY_MAP.get(stockMarket) : "hs";
     }
 
     /**
