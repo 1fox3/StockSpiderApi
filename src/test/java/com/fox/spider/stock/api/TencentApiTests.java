@@ -30,6 +30,16 @@ public class TencentApiTests extends StockBaseTests {
     TencentMinuteScopeKLineApi tencentMinuteScopeKLineApi;
     @Autowired
     TencentKLineApi tencentKLineApi;
+    @Autowired
+    TencentRealtimeDealDetailTimeScopeApi tencentRealtimeDealDetailTimeScopeApi;
+    @Autowired
+    TencentRealtimeDealDetailApi tencentRealtimeDealDetailApi;
+    @Autowired
+    TencentRealtimePriceDealNumApi tencentRealtimePriceDealNumApi;
+    @Autowired
+    TencentRelateStockApi tencentRelateStockApi;
+    @Autowired
+    TencentRelateBlockApi tencentRelateBlockApi;
 
     /**
      * 实时交易数据测试
@@ -69,6 +79,9 @@ public class TencentApiTests extends StockBaseTests {
         System.out.println(tencentMinuteScopeKLineApi.minuteScopeKLine(TEST_SH_STOCK, 5, 200));
     }
 
+    /**
+     * 腾讯股票K线图测试
+     */
     @Test
     void kLineTest() {
         System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_NO,2));
@@ -76,5 +89,45 @@ public class TencentApiTests extends StockBaseTests {
         System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_AFTER,2));
         System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_WEEK, StockConst.SFQ_NO,2));
         System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_MONTH, StockConst.SFQ_NO,2));
+    }
+
+    /**
+     * 交易明细测试
+     */
+    @Test
+    void dealDetailTimeScopeTest() {
+        System.out.println(tencentRealtimeDealDetailTimeScopeApi.dealDetailTimeScope(TEST_SH_STOCK));
+    }
+
+    /**
+     * 交易明细测试
+     */
+    @Test
+    void dealDetailTest() {
+        System.out.println(tencentRealtimeDealDetailApi.dealDetail(TEST_SH_STOCK, 0));
+    }
+
+    /**
+     * 价格成交量测试
+     */
+    @Test
+    void priceDealNumTest() {
+        System.out.println(tencentRealtimePriceDealNumApi.priceDealNum(TEST_SH_STOCK));
+    }
+
+    /**
+     * 相关股票测试
+     */
+    @Test
+    void relateStockTest() {
+        System.out.println(tencentRelateStockApi.relateStock(TEST_SH_STOCK));
+    }
+
+    /**
+     * 股票所属板块
+     */
+    @Test
+    void relateBlockTest() {
+        System.out.println(tencentRelateBlockApi.relateBlock(TEST_SH_STOCK));
     }
 }

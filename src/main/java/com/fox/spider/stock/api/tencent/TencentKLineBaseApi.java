@@ -30,10 +30,6 @@ public class TencentKLineBaseApi extends TencentBaseApi {
      */
     protected static String MIN_DEAL_INFO_SPLIT_STR = " ";
     /**
-     * 返回数据key
-     */
-    protected static String RESPONSE_KEY_DATA = "data";
-    /**
      * 返回数据交易信息key
      */
     protected static String RESPONSE_KEY_QT = "qt";

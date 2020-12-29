@@ -416,6 +416,23 @@ public class StockConst {
     public static final int UPTICK_TYPE_LIMIT_DOWN = 5;
 
     /**
+     * 交易性质（未知）
+     */
+    public static final int DEAL_UNKNOWN = 0;
+    /**
+     * 交易性质（中性）
+     */
+    public static final int DEAL_FLAT = 1;
+    /**
+     * 交易性质（卖）
+     */
+    public static final int DEAL_SELL = 2;
+    /**
+     * 交易性质（买）
+     */
+    public static final int DEAL_BUY = 3;
+
+    /**
      * A股重点指数
      */
     public static final List<StockVo> TOP_INDEX_A = Arrays.asList(

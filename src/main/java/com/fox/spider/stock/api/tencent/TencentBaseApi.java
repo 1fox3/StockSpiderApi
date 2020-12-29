@@ -17,6 +17,18 @@ import java.util.Map;
  */
 public class TencentBaseApi {
     /**
+     * 返回数据key
+     */
+    protected static String RESPONSE_KEY_DATA = "data";
+    /**
+     * 返回数据key
+     */
+    protected static String RESPONSE_KEY_CODE = "code";
+    /**
+     * 返回数据key
+     */
+    protected static String RESPONSE_KEY_NAME = "name";
+    /**
      * 网易支持的股市列表
      */
     public static final List<Integer> TENCENT_SUPPORT_SM = Arrays.asList(
