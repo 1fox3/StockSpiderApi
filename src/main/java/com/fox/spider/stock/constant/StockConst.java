@@ -369,6 +369,10 @@ public class StockConst {
     public static final String STOCK_NAME_C = "C";
 
     /**
+     * 不复权
+     */
+    public static final int SFQ_NO = 0;
+    /**
      * 前复权
      */
     public static final int SFQ_BEFORE = 1;

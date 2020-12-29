@@ -15,8 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 腾讯股票实时分钟线图
@@ -25,7 +26,7 @@ import java.util.*;
  * @date 2020/12/25 14:55
  */
 @Component
-public class TencentRealtimeMinuteKLineApi extends TencentBaseApi {
+public class TencentRealtimeMinuteKLineApi extends TencentKLineBaseApi {
     /**
      * 日志
      */
@@ -39,22 +40,6 @@ public class TencentRealtimeMinuteKLineApi extends TencentBaseApi {
      * _var参数值
      */
     private static String PARAM_VAR = "min_data";
-    /**
-     * 返回数据key
-     */
-    private static String RESPONSE_KEY_DATA = "data";
-    /**
-     * 返回数据交易信息key
-     */
-    private static String RESPONSE_KEY_QT = "qt";
-    /**
-     * 返回数据日期key
-     */
-    private static String RESPONSE_KEY_DATE = "date";
-    /**
-     * 分钟交易信息分割符
-     */
-    private static String MIN_DEAL_INFO_SPLIT_STR = " ";
 
     /**
      * 获取实时交易分钟线图数据
@@ -104,22 +89,9 @@ public class TencentRealtimeMinuteKLineApi extends TencentBaseApi {
         if (null == stockVo || null == response || response.isEmpty()) {
             return null;
         }
-        int infoStartIndex = response.indexOf("{");
-        if (-1 == infoStartIndex) {
-            return null;
-        }
-        String stockCode = TencentBaseApi.tencentStockCode(stockVo);
         try {
-            response = response.substring(infoStartIndex);
-            JSONObject jsonObject = JSONObject.parseObject(response);
-            if (null == jsonObject || !jsonObject.containsKey(RESPONSE_KEY_DATA)) {
-                return null;
-            }
-            jsonObject = jsonObject.getJSONObject(RESPONSE_KEY_DATA);
-            if (null == jsonObject || !jsonObject.containsKey(stockCode)) {
-                return null;
-            }
-            jsonObject = jsonObject.getJSONObject(stockCode);
+            String stockCode = TencentBaseApi.tencentStockCode(stockVo);
+            JSONObject jsonObject = getResponseJSONObject(stockVo, response);
             JSONObject dealInfoObject = jsonObject.containsKey(RESPONSE_KEY_QT) ?
                     jsonObject.getJSONObject(RESPONSE_KEY_QT) : null;
             TencentRealtimeMinuteKLinePo tencentRealtimeMinuteKLinePo = new TencentRealtimeMinuteKLinePo();
@@ -157,38 +129,13 @@ public class TencentRealtimeMinuteKLineApi extends TencentBaseApi {
                 if (minKLineObject.containsKey(RESPONSE_KEY_DATA)) {
                     JSONArray minKLineArr = minKLineObject.getJSONArray(RESPONSE_KEY_DATA);
                     if (null != minKLineArr && !minKLineArr.isEmpty()) {
-
-                        List<TencentRealtimeMinuteNodeDataPo> tencentRealtimeMinuteNodeDataPoList = new ArrayList<>();
-                        Long totalDealNum = 0L;
-                        Long currentTotalDealNum = 0L;
-                        for (int i = 0; i < minKLineArr.size(); i++) {
-                            String minDealInfoStr = minKLineArr.getString(i);
-                            if (null == minDealInfoStr || minDealInfoStr.isEmpty()
-                                    || minDealInfoStr.contains(MIN_DEAL_INFO_SPLIT_STR)) {
-                                String[] minDealInfoArr = minDealInfoStr.split(MIN_DEAL_INFO_SPLIT_STR);
-                                if (3 != minDealInfoArr.length) {
-                                    continue;
-                                }
-                                TencentRealtimeMinuteNodeDataPo tencentRealtimeMinuteNodeDataPo =
-                                        new TencentRealtimeMinuteNodeDataPo();
-                                tencentRealtimeMinuteNodeDataPo.setTime(
-                                        DateUtil.dateStrFormatChange(
-                                                minDealInfoArr[0],
-                                                DateUtil.TIME_FORMAT_5,
-                                                DateUtil.TIME_FORMAT_6
-                                        )
-                                );
-                                tencentRealtimeMinuteNodeDataPo.setPrice(BigDecimalUtil.initPrice(minDealInfoArr[1]));
-                                currentTotalDealNum = new BigDecimal(minDealInfoArr[2]).longValue();
-                                tencentRealtimeMinuteNodeDataPo.setDealNum(
-                                        handleDealNum(stockVo, String.valueOf(currentTotalDealNum - totalDealNum))
-                                );
-                                totalDealNum = currentTotalDealNum;
-                                tencentRealtimeMinuteNodeDataPoList.add(tencentRealtimeMinuteNodeDataPo);
-                            }
+                        List<TencentRealtimeMinuteNodeDataPo> tencentRealtimeMinuteNodeDataPoList =
+                                handleDayMinArr(stockVo, minKLineArr);
+                        if (null != tencentRealtimeMinuteNodeDataPoList
+                                && !tencentRealtimeMinuteNodeDataPoList.isEmpty()) {
+                            tencentRealtimeMinuteKLinePo.setNodeCount(tencentRealtimeMinuteNodeDataPoList.size());
+                            tencentRealtimeMinuteKLinePo.setKlineData(tencentRealtimeMinuteNodeDataPoList);
                         }
-                        tencentRealtimeMinuteKLinePo.setNodeCount(tencentRealtimeMinuteNodeDataPoList.size());
-                        tencentRealtimeMinuteKLinePo.setKlineData(tencentRealtimeMinuteNodeDataPoList);
                     }
                 }
             }
