@@ -3,6 +3,7 @@ package com.fox.spider.stock.api;
 import com.fox.spider.stock.StockBaseTests;
 import com.fox.spider.stock.api.tencent.*;
 import com.fox.spider.stock.constant.StockConst;
+import com.fox.spider.stock.entity.vo.PageVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +41,8 @@ public class TencentApiTests extends StockBaseTests {
     TencentRelateStockApi tencentRelateStockApi;
     @Autowired
     TencentRelateBlockApi tencentRelateBlockApi;
+    @Autowired
+    TencentBigDealApi tencentBigDealApi;
 
     /**
      * 实时交易数据测试
@@ -129,5 +132,15 @@ public class TencentApiTests extends StockBaseTests {
     @Test
     void relateBlockTest() {
         System.out.println(tencentRelateBlockApi.relateBlock(TEST_SH_STOCK));
+    }
+
+    /**
+     * 大单交易信息
+     */
+    @Test
+    void bigDealTest() {
+        System.out.println(tencentBigDealApi.bigDeal(
+                TEST_SH_STOCK, 1, 0, new PageVo(1, 10))
+        );
     }
 }

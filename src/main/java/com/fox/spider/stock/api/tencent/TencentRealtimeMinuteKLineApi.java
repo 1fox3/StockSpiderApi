@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
+import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.po.tencent.TencentRealtimeMinuteKLinePo;
 import com.fox.spider.stock.entity.po.tencent.TencentRealtimeMinuteNodeDataPo;
 import com.fox.spider.stock.entity.vo.StockVo;
@@ -97,21 +98,19 @@ public class TencentRealtimeMinuteKLineApi extends TencentKLineBaseApi {
             TencentRealtimeMinuteKLinePo tencentRealtimeMinuteKLinePo = new TencentRealtimeMinuteKLinePo();
             if (null != dealInfoObject && dealInfoObject.containsKey(stockCode)) {
                 JSONArray dealInfoArr = dealInfoObject.getJSONArray(stockCode);
-                if (null != dealInfoArr) {
-                    int len = dealInfoArr.size();
-                    if (1 < len) {
-                        tencentRealtimeMinuteKLinePo.setStockName(dealInfoArr.getString(1));
-                    }
-                    if (4 < len) {
-                        tencentRealtimeMinuteKLinePo.setPreClosePrice(
-                                BigDecimalUtil.initPrice(dealInfoArr.getString(4))
-                        );
-                    }
-                    if (6 < len) {
-                        tencentRealtimeMinuteKLinePo.setDealNum(
-                                handleDealNum(stockVo, dealInfoArr.getString(6))
-                        );
-                    }
+                TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo =
+                        TencentRealtimeDealInfoApi.getDealInfo(stockVo, dealInfoArr.toArray(new String[]{}));
+                if (null != tencentRealtimeDealInfoPo) {
+                    tencentRealtimeMinuteKLinePo.setRealtimeDealInfo(tencentRealtimeDealInfoPo);
+                    tencentRealtimeMinuteKLinePo.setStockName(
+                            tencentRealtimeDealInfoPo.getStockName()
+                    );
+                    tencentRealtimeMinuteKLinePo.setPreClosePrice(
+                            tencentRealtimeDealInfoPo.getPreClosePrice()
+                    );
+                    tencentRealtimeMinuteKLinePo.setDealNum(
+                            tencentRealtimeDealInfoPo.getDealNum()
+                    );
                 }
             }
             JSONObject minKLineObject = jsonObject.containsKey(RESPONSE_KEY_DATA) ?

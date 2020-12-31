@@ -110,4 +110,23 @@ public class TencentBaseApi {
         }
         return longDealNum;
     }
+
+    /**
+     * 获取交易性质
+     *
+     * @param dealTypeStr
+     * @return
+     */
+    protected static int getDealType(String dealTypeStr) {
+        switch (dealTypeStr) {
+            case "B":
+                return StockConst.DEAL_BUY;
+            case "S":
+                return StockConst.DEAL_SELL;
+            case "M":
+                return StockConst.DEAL_FLAT;
+            default:
+                return StockConst.DEAL_UNKNOWN;
+        }
+    }
 }

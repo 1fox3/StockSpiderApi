@@ -118,7 +118,6 @@ public class TencentRealtimePriceDealNumApi extends TencentBaseApi {
             List<TencentRealtimePriceDealNumInfoPo> tencentRealtimePriceDealNumInfoPoList = new ArrayList<>();
             for (int i = 0; i < priceDealNumArr.length; i++) {
                 String singlePriceDealNumStr = priceDealNumArr[i];
-                System.out.println(singlePriceDealNumStr );
                 if (null == singlePriceDealNumStr || singlePriceDealNumStr.isEmpty()) {
                     continue;
                 }

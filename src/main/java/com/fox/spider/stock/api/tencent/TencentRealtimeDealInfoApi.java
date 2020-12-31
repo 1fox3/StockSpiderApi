@@ -1,5 +1,6 @@
 package com.fox.spider.stock.api.tencent;
 
+import com.alibaba.fastjson.JSONArray;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealInfoPo;
@@ -123,7 +124,8 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
                 int endIndex = singleResponse.lastIndexOf(DEAL_INFO_STR);
                 if (startIndex > 0 && endIndex > 0) {
                     singleResponse = singleResponse.substring(startIndex + 1, endIndex);
-                    TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo = getDealInfo(stockVo, singleResponse);
+                    String[] dealInfoArr = singleResponse.split(DEAL_INFO_SPLIT_STR);
+                    TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo = getDealInfo(stockVo, dealInfoArr);
                     if (null == tencentRealtimeDealInfoPo) {
                         continue;
                     }
@@ -154,14 +156,13 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
      * 获取实时交易信息
      *
      * @param stockVo
-     * @param dealInfoStr
+     * @param dealInfoArr
      * @return
      */
-    private TencentRealtimeDealInfoPo getDealInfo(StockVo stockVo, String dealInfoStr) {
-        if (null == stockVo || null == dealInfoStr || dealInfoStr.isEmpty()) {
+    public static TencentRealtimeDealInfoPo getDealInfo(StockVo stockVo, String[] dealInfoArr) {
+        if (null == stockVo || null == dealInfoArr) {
             return null;
         }
-        String[] dealInfoArr = dealInfoStr.split(DEAL_INFO_SPLIT_STR);
         switch (stockVo.getStockMarket()) {
             case StockConst.SM_SH:
             case StockConst.SM_SZ:
@@ -180,7 +181,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
      * @param dealInfoArr
      * @return
      */
-    private TencentRealtimeDealInfoPo getADealInfo(StockVo stockVo, String[] dealInfoArr) {
+    private static TencentRealtimeDealInfoPo getADealInfo(StockVo stockVo, String[] dealInfoArr) {
         if (null == dealInfoArr) {
             return null;
         }
@@ -318,7 +319,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
      * @param dealInfoArr
      * @return
      */
-    private TencentRealtimeDealInfoPo getHKDealInfo(StockVo stockVo, String[] dealInfoArr) {
+    private static TencentRealtimeDealInfoPo getHKDealInfo(StockVo stockVo, String[] dealInfoArr) {
         if (null == dealInfoArr) {
             return null;
         }

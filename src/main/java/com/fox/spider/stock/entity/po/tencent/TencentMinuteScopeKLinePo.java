@@ -35,6 +35,10 @@ public class TencentMinuteScopeKLinePo implements Serializable {
      */
     BigDecimal preClosePrice;
     /**
+     * 最新交易日交易详情
+     */
+    TencentRealtimeDealInfoPo realtimeDealInfo;
+    /**
      * 分钟粒度的成交信息
      */
     List<TencentMinuteScopeNodeDataPo> klineData;

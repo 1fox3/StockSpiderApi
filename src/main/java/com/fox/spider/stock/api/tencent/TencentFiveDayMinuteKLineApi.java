@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.tencent.TencentDayMinKLinePo;
 import com.fox.spider.stock.entity.po.tencent.TencentFiveDayMinuteKLinePo;
+import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.po.tencent.TencentRealtimeMinuteNodeDataPo;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
@@ -95,11 +96,13 @@ public class TencentFiveDayMinuteKLineApi extends TencentKLineBaseApi {
             TencentFiveDayMinuteKLinePo tencentFiveDayMinuteKLinePo = new TencentFiveDayMinuteKLinePo();
             if (null != dealInfoObject && dealInfoObject.containsKey(stockCode)) {
                 JSONArray dealInfoArr = dealInfoObject.getJSONArray(stockCode);
-                if (null != dealInfoArr) {
-                    int len = dealInfoArr.size();
-                    if (1 < len) {
-                        tencentFiveDayMinuteKLinePo.setStockName(dealInfoArr.getString(1));
-                    }
+                TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo =
+                        TencentRealtimeDealInfoApi.getDealInfo(stockVo, dealInfoArr.toArray(new String[]{}));
+                if (null != tencentRealtimeDealInfoPo) {
+                    tencentFiveDayMinuteKLinePo.setRealtimeDealInfo(tencentRealtimeDealInfoPo);
+                    tencentFiveDayMinuteKLinePo.setStockName(
+                            tencentRealtimeDealInfoPo.getStockName()
+                    );
                 }
             }
             JSONArray fiveDayArr = jsonObject.containsKey(RESPONSE_KEY_DATA) ?

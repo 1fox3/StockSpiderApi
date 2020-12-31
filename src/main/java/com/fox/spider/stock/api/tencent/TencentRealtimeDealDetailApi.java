@@ -47,25 +47,6 @@ public class TencentRealtimeDealDetailApi extends TencentBaseApi {
     private static String DEAL_DETAIL_INFO_SPLIT_STR = "/";
 
     /**
-     * 获取交易性质
-     *
-     * @param dealTypeStr
-     * @return
-     */
-    private static int getDealType(String dealTypeStr) {
-        switch (dealTypeStr) {
-            case "B":
-                return StockConst.DEAL_BUY;
-            case "S":
-                return StockConst.DEAL_SELL;
-            case "M":
-                return StockConst.DEAL_FLAT;
-            default:
-                return StockConst.DEAL_UNKNOWN;
-        }
-    }
-
-    /**
      * 获取股票不同分钟粒度线图
      *
      * @param stockVo

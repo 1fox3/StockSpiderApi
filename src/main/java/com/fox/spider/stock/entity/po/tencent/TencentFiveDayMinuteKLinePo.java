@@ -26,6 +26,10 @@ public class TencentFiveDayMinuteKLinePo implements Serializable {
      */
     String stockName;
     /**
+     * 最新交易日交易详情
+     */
+    TencentRealtimeDealInfoPo realtimeDealInfo;
+    /**
      * 分钟粒度的成交信息
      */
     List<TencentDayMinKLinePo> klineData;

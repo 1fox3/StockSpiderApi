@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.tencent.TencentMinuteScopeKLinePo;
 import com.fox.spider.stock.entity.po.tencent.TencentMinuteScopeNodeDataPo;
+import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
 import com.fox.spider.stock.util.DateUtil;
@@ -110,14 +111,15 @@ public class TencentMinuteScopeKLineApi extends TencentKLineBaseApi {
             }
             JSONObject dealInfoObject = jsonObject.containsKey(RESPONSE_KEY_QT) ?
                     jsonObject.getJSONObject(RESPONSE_KEY_QT) : null;
-
             if (null != dealInfoObject && dealInfoObject.containsKey(stockCode)) {
                 JSONArray dealInfoArr = dealInfoObject.getJSONArray(stockCode);
-                if (null != dealInfoArr) {
-                    int len = dealInfoArr.size();
-                    if (1 < len) {
-                        tencentMinuteScopeKLinePo.setStockName(dealInfoArr.getString(1));
-                    }
+                TencentRealtimeDealInfoPo tencentRealtimeDealInfoPo =
+                        TencentRealtimeDealInfoApi.getDealInfo(stockVo, dealInfoArr.toArray(new String[]{}));
+                if (null != tencentRealtimeDealInfoPo) {
+                    tencentMinuteScopeKLinePo.setRealtimeDealInfo(tencentRealtimeDealInfoPo);
+                    tencentMinuteScopeKLinePo.setStockName(
+                            tencentRealtimeDealInfoPo.getStockName()
+                    );
                 }
             }
             String minuteScopeDataKey = "m" + scope;
