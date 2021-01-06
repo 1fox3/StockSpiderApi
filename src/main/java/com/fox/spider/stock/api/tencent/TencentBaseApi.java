@@ -57,7 +57,7 @@ public class TencentBaseApi {
     }
 
     /**
-     * 获取新浪股票代码
+     * 获取腾讯股票代码
      *
      * @param stockVo
      * @return
@@ -95,6 +95,7 @@ public class TencentBaseApi {
 
     /**
      * 处理成交量数值差异
+     *
      * @param stockVo
      * @param dealNum
      * @return

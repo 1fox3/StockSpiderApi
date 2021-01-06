@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
+ * 香港交易所接口测试
+ *
  * @author lusongsong
  * @date 2020/11/20 15:15
  */
@@ -21,7 +23,6 @@ public class HKApiTests extends StockBaseTests {
      */
     @Autowired
     HKStockInfoApi hkStockInfoApi;
-
 
 
     /**

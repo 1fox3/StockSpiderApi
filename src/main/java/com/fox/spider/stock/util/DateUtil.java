@@ -272,4 +272,16 @@ public class DateUtil {
         calendar.setTime(date);
         return calendar;
     }
+
+    /**
+     * 时间戳格式转换
+     *
+     * @param timestamp
+     * @param format
+     * @return
+     */
+    public static String timestampFormat(Long timestamp, String format) {
+        simpleDateFormat.applyPattern(format);
+        return simpleDateFormat.format(new Date(timestamp));
+    }
 }
