@@ -115,8 +115,6 @@ public class TencentBigDealApi extends TencentBaseApi {
                     .setOriCharset(HttpUtil.CHARSET_GBK)
                     .setErrorOriCharset(HttpUtil.CHARSET_UTF8);
             HttpResponseDto httpResponse = httpUtil.request();
-            System.out.println(params);
-            System.out.println(httpResponse.getContent());
             List<TencentBigDealPo> tencentBigDealPoList = this.handleResponse(
                     stockVo, httpResponse.getContent()
             );

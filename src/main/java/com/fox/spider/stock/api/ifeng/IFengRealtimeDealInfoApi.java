@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.api.StockBaseApi;
-import com.fox.spider.stock.api.tencent.TencentBaseApi;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.ifeng.IFengRealtimeDealInfoPo;
-import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
 import com.fox.spider.stock.util.DateUtil;
@@ -280,7 +278,6 @@ public class IFengRealtimeDealInfoApi extends IFengBaseApi {
      * @return
      */
     private IFengRealtimeDealInfoPo hkHandleDealInfo(StockVo stockVo, JSONObject jsonObject) {
-        System.out.println(jsonObject);
         if (null == stockVo || null == jsonObject || jsonObject.isEmpty()) {
             return null;
         }

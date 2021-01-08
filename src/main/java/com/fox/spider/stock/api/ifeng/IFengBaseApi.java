@@ -14,6 +14,10 @@ import java.util.Map;
  */
 public class IFengBaseApi {
     /**
+     * 返回数据key
+     */
+    public static final String RESPONSE_KEY_RECORD = "record";
+    /**
      * 凤凰网股市对应的拼音
      */
     public static final Map<Integer, String> IFENG_SM_PY_MAP = new HashMap<Integer, String>() {{
