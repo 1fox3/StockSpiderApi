@@ -2,7 +2,6 @@ package com.fox.spider.stock.api.tencent;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
-import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealDetailPo;
 import com.fox.spider.stock.entity.vo.StockVo;
@@ -47,7 +46,7 @@ public class TencentRealtimeDealDetailApi extends TencentBaseApi {
     private static String DEAL_DETAIL_INFO_SPLIT_STR = "/";
 
     /**
-     * 获取股票不同分钟粒度线图
+     * 获取股票交易明细
      *
      * @param stockVo
      * @param page
@@ -60,11 +59,11 @@ public class TencentRealtimeDealDetailApi extends TencentBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(4);
+            Map<String, Object> params = new HashMap<>(4);
             params.put("appn", "detail");
             params.put("action", "data");
             params.put("c", tencnetStockCode);
-            params.put("p", page.toString());
+            params.put("p", page);
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)
                     .setParams(params)
                     .setOriCharset(HttpUtil.CHARSET_GBK)

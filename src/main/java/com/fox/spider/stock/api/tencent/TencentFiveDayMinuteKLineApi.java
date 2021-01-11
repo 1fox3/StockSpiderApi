@@ -55,7 +55,7 @@ public class TencentFiveDayMinuteKLineApi extends TencentKLineBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(2);
+            Map<String, Object> params = new HashMap<>(2);
             params.put("_var", PARAM_VAR);
             params.put("code", tencnetStockCode);
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)

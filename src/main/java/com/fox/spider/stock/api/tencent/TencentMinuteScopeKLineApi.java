@@ -61,7 +61,7 @@ public class TencentMinuteScopeKLineApi extends TencentKLineBaseApi {
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
             len = MAX_LEN < len ? MAX_LEN : len;
-            Map<String, String> params = new HashMap<>(2);
+            Map<String, Object> params = new HashMap<>(2);
             params.put("param", StringUtils.join(Arrays.asList(
                     tencnetStockCode,
                     "m" + scope,
@@ -74,7 +74,7 @@ public class TencentMinuteScopeKLineApi extends TencentKLineBaseApi {
                     .setOriCharset(HttpUtil.CHARSET_GBK)
                     .setErrorOriCharset(HttpUtil.CHARSET_UTF8);
             HttpResponseDto httpResponse = httpUtil.request();
-            TencentMinuteScopeKLinePo tencentMinuteScopeKLinePo = this.handleResponse(
+            TencentMinuteScopeKLinePo tencentMinuteScopeKLinePo = handleResponse(
                     stockVo, scope, httpResponse.getContent()
             );
             if (null != tencentMinuteScopeKLinePo) {

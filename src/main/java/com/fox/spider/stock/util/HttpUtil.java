@@ -97,7 +97,7 @@ public class HttpUtil {
     /**
      * 请求参数
      */
-    private Map<String, String> params = new HashMap<>();
+    private Map<String, Object> params = new HashMap<>();
     /**
      * 请求数据
      */
@@ -263,8 +263,12 @@ public class HttpUtil {
      * @param params
      * @return
      */
-    public HttpUtil setParams(Map<String, String> params) {
-        this.params = params;
+    public HttpUtil setParams(Map<String, Object> params) {
+        if (null == this.params || this.params.isEmpty()) {
+            this.params = params;
+        } else {
+            this.params.putAll(params);
+        }
         return this;
     }
 
@@ -275,7 +279,7 @@ public class HttpUtil {
      * @param value
      * @return
      */
-    public HttpUtil setParam(String key, String value) {
+    public HttpUtil setParam(String key, Object value) {
         this.params.put(key, value);
         return this;
     }
@@ -315,7 +319,7 @@ public class HttpUtil {
      *
      * @return
      */
-    public Map<String, String> getParams() {
+    public Map<String, Object> getParams() {
         return this.params;
     }
 

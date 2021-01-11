@@ -50,7 +50,7 @@ public class IFengFiveDayMinuteKLineApi extends IFengBaseApi {
         }
         try {
             String iFengStockCode = iFengStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(2);
+            Map<String, Object> params = new HashMap<>(2);
             params.put("code", iFengStockCode);
             params.put("type", "five");
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)

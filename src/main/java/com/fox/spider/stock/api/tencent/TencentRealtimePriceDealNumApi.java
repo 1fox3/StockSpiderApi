@@ -58,7 +58,7 @@ public class TencentRealtimePriceDealNumApi extends TencentBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(2);
+            Map<String, Object> params = new HashMap<>(2);
             params.put("appn", "price");
             params.put("c", tencnetStockCode);
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)

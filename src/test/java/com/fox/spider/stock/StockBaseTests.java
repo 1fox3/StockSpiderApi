@@ -17,7 +17,7 @@ public class StockBaseTests {
     /**
      * 深市测试股票（同花顺）
      */
-    public static final StockVo TEST_SZ_STOCK = new StockVo("300033", StockConst.SM_SZ);
+    public static final StockVo TEST_SZ_STOCK = new StockVo("000001", StockConst.SM_SZ);
     /**
      * 港股测试股票（腾讯控股）
      */

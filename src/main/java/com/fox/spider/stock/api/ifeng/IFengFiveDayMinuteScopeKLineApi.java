@@ -51,9 +51,9 @@ public class IFengFiveDayMinuteScopeKLineApi extends IFengBaseApi {
         }
         try {
             String iFengStockCode = iFengStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(2);
+            Map<String, Object> params = new HashMap<>(2);
             params.put("scode", iFengStockCode);
-            params.put("type", scope.toString());
+            params.put("type", scope);
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)
                     .setParams(params)
                     .setOriCharset(HttpUtil.CHARSET_GBK)

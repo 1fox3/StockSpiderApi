@@ -103,13 +103,13 @@ public class TencentBigDealApi extends TencentBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(6);
+            Map<String, Object> params = new HashMap<>(6);
             params.put("t", "js");
             params.put("c", tencnetStockCode);
-            params.put("max", pageVo.getPageSize().toString());
-            params.put("p", pageVo.getPageNum().toString());
-            params.put("opt", filterOpt.toString());
-            params.put("o", sortType.toString());
+            params.put("max", pageVo.getPageSize());
+            params.put("p", pageVo.getPageNum());
+            params.put("opt", filterOpt);
+            params.put("o", sortType);
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)
                     .setParams(params)
                     .setOriCharset(HttpUtil.CHARSET_GBK)

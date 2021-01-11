@@ -22,4 +22,14 @@ public class StockVo implements Serializable {
      * 股票所属交易所
      */
     Integer stockMarket;
+
+    /**
+     * 验证对象是否正确
+     *
+     * @param stockVo
+     * @return
+     */
+    public static final boolean verify(StockVo stockVo) {
+        return null != stockVo && null != stockVo.getStockMarket() && null != stockVo.getStockCode();
+    }
 }

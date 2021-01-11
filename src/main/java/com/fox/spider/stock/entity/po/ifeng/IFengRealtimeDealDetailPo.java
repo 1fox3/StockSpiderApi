@@ -3,7 +3,6 @@ package com.fox.spider.stock.entity.po.ifeng;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**

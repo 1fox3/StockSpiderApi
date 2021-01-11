@@ -48,7 +48,7 @@ public class TencentRelateBlockApi extends TencentBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(1);
+            Map<String, Object> params = new HashMap<>(1);
             params.put("code", tencnetStockCode);
             HttpUtil httpUtil = new HttpUtil().setUrl(API_URL)
                     .setParams(params)

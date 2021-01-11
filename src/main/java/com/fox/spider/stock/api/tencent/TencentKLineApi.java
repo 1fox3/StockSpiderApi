@@ -147,7 +147,7 @@ public class TencentKLineApi extends TencentKLineBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(2);
+            Map<String, Object> params = new HashMap<>(2);
             params.put("param", StringUtils.join(Arrays.asList(
                     tencnetStockCode,
                     getDateTypeStr(dateType),

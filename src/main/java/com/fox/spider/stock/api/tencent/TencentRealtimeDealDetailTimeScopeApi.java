@@ -54,7 +54,7 @@ public class TencentRealtimeDealDetailTimeScopeApi extends TencentBaseApi {
         }
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
-            Map<String, String> params = new HashMap<>(4);
+            Map<String, Object> params = new HashMap<>(4);
             params.put("appn", "detail");
             params.put("action", "timeline");
             params.put("c", tencnetStockCode);
