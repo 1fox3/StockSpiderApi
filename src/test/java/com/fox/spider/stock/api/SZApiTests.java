@@ -1,7 +1,10 @@
 package com.fox.spider.stock.api;
 
 import com.fox.spider.stock.StockBaseTests;
+import com.fox.spider.stock.api.sz.SZKLineApi;
+import com.fox.spider.stock.api.sz.SZRealtimeDealApi;
 import com.fox.spider.stock.api.sz.SZStockInfoApi;
+import com.fox.spider.stock.constant.StockConst;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +26,10 @@ public class SZApiTests extends StockBaseTests {
      */
     @Autowired
     SZStockInfoApi szStockInfoApi;
+    @Autowired
+    SZRealtimeDealApi szRealtimeDealApi;
+    @Autowired
+    SZKLineApi szkLineApi;
 
     /**
      * 按天成交信息测试
@@ -30,5 +37,21 @@ public class SZApiTests extends StockBaseTests {
     @Test
     void stockInfoTest() {
         System.out.println(szStockInfoApi.stockInfo(TEST_SZ_STOCK_CODE));
+    }
+
+    /**
+     * 深证股票最新交易日交易数据测试
+     */
+    @Test
+    void realtimeDealTest() {
+        System.out.println(szRealtimeDealApi.realtimeDeal(TEST_SZ_STOCK));
+    }
+
+    /**
+     * 深证股票k线数据测试
+     */
+    @Test
+    void kLineTest() {
+        System.out.println(szkLineApi.kline(TEST_SZ_STOCK, StockConst.DT_DAY));
     }
 }

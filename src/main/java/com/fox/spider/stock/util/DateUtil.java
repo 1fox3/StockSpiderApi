@@ -38,6 +38,7 @@ public class DateUtil {
     public static final String TIME_FORMAT_6 = "HH:mm";
     public static final String TIME_FORMAT_7 = "yyyyMMddHHmm";
     public static final String TIME_FORMAT_8 = "yyyy-MM-dd HH:mm";
+    public static final String TIME_FORMAT_9 = "HHmmss";
 
     /**
      * 星期格式

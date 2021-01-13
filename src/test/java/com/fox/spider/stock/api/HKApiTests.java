@@ -1,6 +1,7 @@
 package com.fox.spider.stock.api;
 
 import com.fox.spider.stock.StockBaseTests;
+import com.fox.spider.stock.api.hk.HKKLineApi;
 import com.fox.spider.stock.api.hk.HKStockInfoApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class HKApiTests extends StockBaseTests {
      */
     @Autowired
     HKStockInfoApi hkStockInfoApi;
+    @Autowired
+    HKKLineApi hkkLineApi;
 
 
     /**
@@ -32,6 +35,16 @@ public class HKApiTests extends StockBaseTests {
     void stockInfoTest() {
         System.out.println(hkStockInfoApi.stockInfo(
                 hkStockInfoApi.apiToken(), TEST_HK_STOCK_CODE
+        ));
+    }
+
+    /**
+     * K线数据测试
+     */
+    @Test
+    void kLineTest() {
+        System.out.println(hkkLineApi.kLine(
+                TEST_HK_STOCK, HKKLineApi.HK_KLINE_MINUTE, hkStockInfoApi.apiToken()
         ));
     }
 }

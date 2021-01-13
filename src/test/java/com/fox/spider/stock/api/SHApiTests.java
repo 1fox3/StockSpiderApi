@@ -1,6 +1,8 @@
 package com.fox.spider.stock.api;
 
 import com.fox.spider.stock.StockBaseTests;
+import com.fox.spider.stock.api.sh.SHRealtimeDealInfoApi;
+import com.fox.spider.stock.api.sh.SHRealtimeMinuteKLineApi;
 import com.fox.spider.stock.api.sh.SHStockInfoApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public class SHApiTests extends StockBaseTests {
      */
     @Autowired
     SHStockInfoApi shStockInfoApi;
+    @Autowired
+    SHRealtimeMinuteKLineApi shRealtimeMinuteKLineApi;
+    @Autowired
+    SHRealtimeDealInfoApi shRealtimeDealInfoApi;
 
     /**
      * 按天成交信息测试
@@ -30,5 +36,21 @@ public class SHApiTests extends StockBaseTests {
     @Test
     void stockInfoTest() {
         System.out.println(shStockInfoApi.stockInfo(TEST_SH_STOCK_CODE));
+    }
+
+    /**
+     * 最新交易日分钟新图数据测试
+     */
+    @Test
+    void realtimeMinuteKLineTest() {
+        System.out.println(shRealtimeMinuteKLineApi.realtimeMinuteKLine(TEST_SH_STOCK));
+    }
+
+    /**
+     * 最新交易日交易详情信息
+     */
+    @Test
+    void realtimeDealInfoTest() {
+        System.out.println(shRealtimeDealInfoApi.realtimeDealInfo(TEST_SH_STOCK));
     }
 }
