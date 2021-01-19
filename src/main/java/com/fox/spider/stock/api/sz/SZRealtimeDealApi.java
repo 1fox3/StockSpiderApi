@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
-import com.fox.spider.stock.entity.po.sh.SHRealtimeDealInfoPo;
 import com.fox.spider.stock.entity.po.sz.SZRealtimeDealPo;
 import com.fox.spider.stock.entity.po.sz.SZRealtimeMinuteKLinePo;
 import com.fox.spider.stock.entity.vo.StockVo;

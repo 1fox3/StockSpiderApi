@@ -73,4 +73,14 @@ public class IFengBaseApi {
         }
         return null;
     }
+
+    /**
+     * 是否支持该证券所
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static boolean isSupport(int stockMarket) {
+        return IFENG_SM_PY_MAP.containsKey(stockMarket);
+    }
 }

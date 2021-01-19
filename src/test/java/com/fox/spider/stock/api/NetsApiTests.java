@@ -1,10 +1,7 @@
 package com.fox.spider.stock.api;
 
 import com.fox.spider.stock.StockBaseTests;
-import com.fox.spider.stock.api.nets.NetsDayDealInfoApi;
-import com.fox.spider.stock.api.nets.NetsFQKLineDataApi;
-import com.fox.spider.stock.api.nets.NetsFQTotalClosePriceApi;
-import com.fox.spider.stock.api.nets.NetsRealtimeMinuteKLineApi;
+import com.fox.spider.stock.api.nets.*;
 import com.fox.spider.stock.constant.StockConst;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,16 @@ class NetsApiTests extends StockBaseTests {
     NetsRealtimeMinuteKLineApi netsRealtimeMinuteKLineApi;
     @Autowired
     NetsFQTotalClosePriceApi netsFQTotalClosePriceApi;
+    @Autowired
+    NetsRealtimeDealInfoApi netsRealtimeDealInfoApi;
+
+    /**
+     * 网易股票最新交易日交易数据接口测试
+     */
+    @Test
+    void realtimeDealInfoTest() {
+        System.out.println(netsRealtimeDealInfoApi.realtimeDealInfo(TEST_SH_STOCK));
+    }
 
     /**
      * 按天成交信息测试

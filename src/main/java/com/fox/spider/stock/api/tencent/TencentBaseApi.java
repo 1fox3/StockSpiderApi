@@ -29,14 +29,6 @@ public class TencentBaseApi {
      */
     protected static String RESPONSE_KEY_NAME = "name";
     /**
-     * 网易支持的股市列表
-     */
-    public static final List<Integer> TENCENT_SUPPORT_SM = Arrays.asList(
-            StockConst.SM_SH,
-            StockConst.SM_SZ,
-            StockConst.SM_HK
-    );
-    /**
      * 腾讯股市对应的拼音
      */
     public static final Map<Integer, String> TENCENT_SM_PY_MAP = new HashMap<Integer, String>() {{
@@ -129,5 +121,15 @@ public class TencentBaseApi {
             default:
                 return StockConst.DEAL_UNKNOWN;
         }
+    }
+
+    /**
+     * 是否支持该证券所
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static boolean isSupport(int stockMarket) {
+        return TENCENT_SM_PY_MAP.containsKey(stockMarket);
     }
 }

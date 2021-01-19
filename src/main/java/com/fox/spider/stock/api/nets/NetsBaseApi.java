@@ -16,13 +16,6 @@ import java.util.Map;
  */
 public class NetsBaseApi {
     /**
-     * 网易支持的股市列表
-     */
-    public static final List<Integer> NETS_SUPPORT_SM = Arrays.asList(
-            StockConst.SM_SH,
-            StockConst.SM_SZ
-    );
-    /**
      * 股市对应的拼音
      */
     public static final Map<Integer, String> NETS_SM_PY_MAP = new HashMap<Integer, String>() {{
@@ -74,5 +67,35 @@ public class NetsBaseApi {
         stringBuffer.append(NetsBaseApi.netsStockPreCode(stockVo.getStockMarket()));
         stringBuffer.append(stockVo.getStockCode());
         return stringBuffer.toString();
+    }
+
+    /**
+     * 获取股票信息
+     *
+     * @param netsStockCode
+     * @return
+     */
+    public static StockVo netsStockCodeToStockVo(String netsStockCode) {
+        if (null == netsStockCode || netsStockCode.isEmpty()) {
+            return null;
+        }
+        for (Integer stockMarket : NETS_SM_PRE_CODE_MAP.keySet()) {
+            String stockMarketPreCode = NETS_SM_PRE_CODE_MAP.get(stockMarket);
+            if (netsStockCode.startsWith(stockMarketPreCode)) {
+                String stockCode = netsStockCode.replaceFirst(stockMarketPreCode, "");
+                return new StockVo(stockCode, stockMarket);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 是否支持该证券所
+     *
+     * @param stockMarket
+     * @return
+     */
+    public static boolean isSupport(int stockMarket) {
+        return NETS_SM_PRE_CODE_MAP.containsKey(stockMarket);
     }
 }
