@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+
 /**
  * 新浪股票接口测试
  *
@@ -69,7 +71,7 @@ class SinaApiTests extends StockBaseTests {
      */
     @Test
     void realtimeDealInfoTest() {
-        System.out.println(sinaRealtimeDealInfoApi.realtimeDealInfo(TEST_SH_STOCK));
+        System.out.println(sinaRealtimeDealInfoApi.batchRealtimeDealInfo(Arrays.asList(TEST_SH_STOCK, TEST_SZ_STOCK)));
     }
 
     /**

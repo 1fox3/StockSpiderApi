@@ -116,15 +116,16 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
             String[] responseArr = response.trim().split(RESPONSE_SPLIT_STR);
             HashMap<String, SinaRealtimeDealInfoPo> sinaRealtimeDealInfoPoHashMap = new HashMap<>(responseArr.length);
             for (int i = 0; i < responseArr.length; i++) {
-                if (!responseArr[i].equals("")) {
-                    String stockCodeStr = getStockCodeStr(responseArr[i]);
+                String singleStockResponse = responseArr[i].trim();
+                if (!singleStockResponse.equals("")) {
+                    String stockCodeStr = getStockCodeStr(singleStockResponse);
                     StockVo stockVo = getStock(stockCodeStr);
-                    int startIndex = response.indexOf(DEAL_INFO_SPLIT_STR);
-                    int endIndex = response.lastIndexOf(DEAL_INFO_SPLIT_STR);
+                    int startIndex = singleStockResponse.indexOf(DEAL_INFO_SPLIT_STR);
+                    int endIndex = singleStockResponse.lastIndexOf(DEAL_INFO_SPLIT_STR);
                     if (startIndex > 0 && endIndex > 0) {
-                        response = response.substring(startIndex + 1, endIndex);
-                        if (response.contains(STOCK_CODE_SPLIT_STR)) {
-                            String[] dealInfoArr = response.split(STOCK_CODE_SPLIT_STR);
+                        singleStockResponse = singleStockResponse.substring(startIndex + 1, endIndex);
+                        if (singleStockResponse.contains(STOCK_CODE_SPLIT_STR)) {
+                            String[] dealInfoArr = singleStockResponse.split(STOCK_CODE_SPLIT_STR);
                             SinaRealtimeDealInfoPo sinaRealtimeDealInfoPo;
                             switch (stockVo.getStockMarket()) {
                                 case StockConst.SM_SH:
