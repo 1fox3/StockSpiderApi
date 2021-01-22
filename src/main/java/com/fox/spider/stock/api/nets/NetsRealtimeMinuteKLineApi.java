@@ -11,10 +11,10 @@ import com.fox.spider.stock.util.DateUtil;
 import com.fox.spider.stock.util.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +55,11 @@ public class NetsRealtimeMinuteKLineApi extends NetsBaseApi {
             HttpUtil httpUtil = new HttpUtil();
             httpUtil.setUrl(url).setOriCharset("GBK");
             HttpResponseDto httpResponse = httpUtil.request();
-            return this.handleResponse(httpResponse.getContent());
+            NetsRealtimeMinuteKLinePo netsRealtimeMinuteKLinePo = this.handleResponse(httpResponse.getContent());
+            if (null != netsRealtimeMinuteKLinePo) {
+                BeanUtils.copyProperties(stockVo, netsRealtimeMinuteKLinePo);
+            }
+            return netsRealtimeMinuteKLinePo;
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
@@ -86,10 +90,14 @@ public class NetsRealtimeMinuteKLineApi extends NetsBaseApi {
                 netsRealtimeMinuteKLinePo.setStockName(responseObject.getString("name").replace(" ", ""));
             }
             if (responseObject.containsKey("yestclose")) {
-                netsRealtimeMinuteKLinePo.setPreClosePrice(new BigDecimal(responseObject.getDouble("yestclose")));
+                netsRealtimeMinuteKLinePo.setPreClosePrice(
+                        BigDecimalUtil.initPrice(responseObject.getString("yestclose"))
+                );
             }
             if (responseObject.containsKey("lastVolume")) {
-                netsRealtimeMinuteKLinePo.setDealNum(responseObject.getLong("lastVolume"));
+                netsRealtimeMinuteKLinePo.setDealNum(
+                        BigDecimalUtil.initLong(responseObject.getString("lastVolume"))
+                );
             }
             if (responseObject.containsKey("date")) {
                 netsRealtimeMinuteKLinePo.setDt(

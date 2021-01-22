@@ -130,6 +130,7 @@ public class IFengFiveDayMinuteKLineApi extends IFengBaseApi {
                     IFengFiveDayMinuteNodeDataPo iFengFiveDayMinuteNodeDataPo = null;
                     for (int k = 0; k < minuteArr.size(); k++) {
                         String str = minuteArr.getString(k);
+                        str = str.replaceAll(",", "");
                         if (null == str || str.isEmpty()) {
                             continue;
                         }
