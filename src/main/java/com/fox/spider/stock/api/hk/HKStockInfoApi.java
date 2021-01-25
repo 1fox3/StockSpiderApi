@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +37,21 @@ public class HKStockInfoApi extends HKBaseApi {
      * 港股接口请求凭证正则表达式
      */
     private static final Pattern HK_TOKEN_PATTERN = Pattern.compile("^return \"(.*)\";$");
+    /**
+     * 无信息的港股
+     */
+    private static final List<String> NO_INFO_LIST = Arrays.asList(
+            //思科－Ｔ
+            "04333",
+            //英特尔－Ｔ
+            "04335",
+            //应用材料－Ｔ
+            "04336",
+            //星巴克－Ｔ
+            "04337",
+            //微软－Ｔ
+            "04338"
+    );
 
     /**
      * 获取接口请求凭证
@@ -71,7 +88,8 @@ public class HKStockInfoApi extends HKBaseApi {
      * @return
      */
     public HKStockInfoPo stockInfo(String token, String stockCode) {
-        if (null == token || token.isEmpty() || null == stockCode || stockCode.isEmpty()) {
+        if (null == token || token.isEmpty() || null == stockCode || stockCode.isEmpty()
+                || NO_INFO_LIST.contains(stockCode)) {
             return null;
         }
 

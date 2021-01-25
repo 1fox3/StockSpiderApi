@@ -70,24 +70,21 @@ public class StockToolImpl implements StockToolService {
             if (null == stockCategoryVo) {
                 return null;
             }
-            //科创板不设涨跌幅限制
-            if (StockConst.SK_SH_STOCK_STAR == stockCategoryVo.getStockKind()) {
-                return null;
-            }
-            if (null == stockName || stockName.isEmpty()) {
-                return null;
-            }
-            //创业版涨跌幅限制为20%
-            if (StockConst.SK_SZ_STOCK_GEM == stockCategoryVo.getStockKind()) {
-                //创业版新股上市(前5日)无涨跌幅限制
-                if (stockName.startsWith(StockConst.STOCK_NAME_NEW)
-                        || stockName.startsWith(StockConst.STOCK_NAME_C)) {
-                    return null;
+            //科创板,创业版涨跌幅限制为20%
+            if (StockConst.SK_SZ_STOCK_GEM == stockCategoryVo.getStockKind()
+                    || StockConst.SK_SH_STOCK_STAR == stockCategoryVo.getStockKind()) {
+                //科创板,创业版新股上市(前5日)无涨跌幅限制
+                if (null != stockName && !stockName.isEmpty()) {
+                    if (stockName.startsWith(StockConst.STOCK_NAME_NEW)
+                            || stockName.startsWith(StockConst.STOCK_NAME_C)) {
+                        return null;
+                    }
                 }
+
                 return new BigDecimal(0.2).setScale(2, RoundingMode.HALF_UP);
             }
             //非ST的股票涨跌幅限制为10%，ST的股票涨跌幅限制为5%
-            double limitRate = null != stockName && stockName.contains(StockConst.STOCK_NAME_ST) ? 0.5 : 0.1;
+            double limitRate = null != stockName && stockName.contains(StockConst.STOCK_NAME_ST) ? 0.05 : 0.1;
             return new BigDecimal(limitRate).setScale(2, RoundingMode.HALF_UP);
         }
         return null;
