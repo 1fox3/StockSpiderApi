@@ -11,7 +11,6 @@ import com.fox.spider.stock.util.DateUtil;
 import com.fox.spider.stock.util.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -57,7 +56,8 @@ public class NetsRealtimeMinuteKLineApi extends NetsBaseApi {
             HttpResponseDto httpResponse = httpUtil.request();
             NetsRealtimeMinuteKLinePo netsRealtimeMinuteKLinePo = this.handleResponse(httpResponse.getContent());
             if (null != netsRealtimeMinuteKLinePo) {
-                BeanUtils.copyProperties(stockVo, netsRealtimeMinuteKLinePo);
+                netsRealtimeMinuteKLinePo.setStockMarket(stockVo.getStockMarket());
+                netsRealtimeMinuteKLinePo.setStockCode(stockVo.getStockCode());
             }
             return netsRealtimeMinuteKLinePo;
         } catch (IOException e) {

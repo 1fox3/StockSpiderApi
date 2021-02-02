@@ -50,7 +50,9 @@ public class HKStockInfoApi extends HKBaseApi {
             //星巴克－Ｔ
             "04337",
             //微软－Ｔ
-            "04338"
+            "04338",
+            //AMGEN-T
+            "04332"
     );
 
     /**
@@ -102,9 +104,15 @@ public class HKStockInfoApi extends HKBaseApi {
             httpUtil.setParam("qid", "1601974258969");
             httpUtil.setParam("callback", "jQuery351036336353960645607_1601974242276");
             HttpResponseDto httpResponse = httpUtil.request();
+            if (!httpResponse.getCode().equals(HttpUtil.CODE_SUCCESS)) {
+                return null;
+            }
             String responseContent = httpResponse.getContent();
             int startPos = responseContent.indexOf('(');
             int endPos = responseContent.lastIndexOf(')');
+            if (-1 == startPos || -1 == endPos) {
+                return null;
+            }
             responseContent = responseContent.substring(startPos + 1, endPos);
             if (null != responseContent && !responseContent.equals("")) {
                 JSONObject baseObject = JSONObject.parseObject(responseContent);
