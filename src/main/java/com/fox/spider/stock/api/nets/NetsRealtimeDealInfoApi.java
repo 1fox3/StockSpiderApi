@@ -184,8 +184,8 @@ public class NetsRealtimeDealInfoApi extends NetsBaseApi {
                         DateUtil.dateStrFormatChange(jsonObject.getString("update"), DateUtil.TIME_FORMAT_4, DateUtil.TIME_FORMAT_2)
                 );
             }
-            LinkedHashMap<BigDecimal, Long> buyPriceMap = new LinkedHashMap<>(5);
-            LinkedHashMap<BigDecimal, Long> sellPriceMap = new LinkedHashMap<>(5);
+            TreeMap<BigDecimal, Long> buyPriceMap = new TreeMap<>();
+            TreeMap<BigDecimal, Long> sellPriceMap = new TreeMap<>();
             for (int i = 1; i <= 5; i++) {
                 String buyPriceKey = "bid" + i;
                 String buyVolKey = "bidvol" + i;

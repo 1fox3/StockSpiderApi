@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.util.List;
 
 /**
@@ -78,11 +78,11 @@ public class IFengRealtimeDealInfoPo implements Serializable {
     /**
      * 排名靠前的5个买方报价
      */
-    LinkedHashMap<BigDecimal, Long> buyPriceMap;
+    TreeMap<BigDecimal, Long> buyPriceMap;
     /**
      * 排名靠前的5个卖方报价
      */
-    LinkedHashMap<BigDecimal, Long> sellPriceMap;
+    TreeMap<BigDecimal, Long> sellPriceMap;
     /**
      * 未知的数据列表
      */

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.util.List;
 
 /**
@@ -127,7 +127,7 @@ public class SHRealtimeDealInfoApi extends SHBaseApi {
                             } else if (12 == i) {
                                 shRealtimeDealInfoPo.setDealMoney(BigDecimalUtil.initPrice(infoStr));
                             } else if (13 == i || 14 == i) {
-                                LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap(5);
+                                TreeMap<BigDecimal, Long> priceMap = new TreeMap();
                                 JSONArray priceArr = jsonArray.getJSONArray(i);
                                 Long num = null;
                                 BigDecimal price = null;

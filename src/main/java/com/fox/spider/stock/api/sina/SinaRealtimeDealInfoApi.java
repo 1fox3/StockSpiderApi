@@ -198,7 +198,7 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
             if (null == responseArr || responseArr.length == 0) {
                 return sinaRealtimeDealInfoPo;
             }
-            LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap<>();
+            TreeMap<BigDecimal, Long> priceMap = new TreeMap<>();
             Long num = null;
             BigDecimal price = null;
             List<String> unknownList = new LinkedList<>();
@@ -260,7 +260,7 @@ public class SinaRealtimeDealInfoApi extends SinaBaseApi {
                         priceMap.put(price, num);
                         if (i == 19) {
                             sinaRealtimeDealInfoPo.setBuyPriceMap(priceMap);
-                            priceMap = new LinkedHashMap<>(5);
+                            priceMap = new TreeMap<>();
                         }
                         if (i == 29) {
                             sinaRealtimeDealInfoPo.setSellPriceMap(priceMap);

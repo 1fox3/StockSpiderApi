@@ -243,7 +243,7 @@ public class IFengRealtimeDealInfoApi extends IFengBaseApi {
                 } else {
                     numList.add(BigDecimalUtil.initLong(dealInfoStr));
                     if (20 == i || 30 == i) {
-                        LinkedHashMap<BigDecimal, Long> priceNumMap = new LinkedHashMap<>();
+                        TreeMap<BigDecimal, Long> priceNumMap = new TreeMap<>();
                         for (int j = 0; j < priceList.size(); j++) {
                             priceNumMap.put(priceList.get(j), numList.get(j));
                         }

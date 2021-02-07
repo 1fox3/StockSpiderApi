@@ -1,6 +1,5 @@
 package com.fox.spider.stock.api.tencent;
 
-import com.alibaba.fastjson.JSONArray;
 import com.fox.spider.stock.constant.StockConst;
 import com.fox.spider.stock.entity.dto.http.HttpResponseDto;
 import com.fox.spider.stock.entity.po.tencent.TencentRealtimeDealInfoPo;
@@ -192,7 +191,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
         BigDecimal price = null;
         //售量
         Long num = null;
-        LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap(5);
+        TreeMap<BigDecimal, Long> priceMap = new TreeMap();
         for (int i = 1; i < dealInfoArr.length; i++) {
             String dealInfo = dealInfoArr[i];
             if (null == dealInfo || dealInfo.isEmpty()) {
@@ -217,7 +216,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
                     priceMap.put(price, num);
                     if (i == 18) {
                         tencentRealtimeDealInfoPo.setBuyPriceMap(priceMap);
-                        priceMap = new LinkedHashMap<>(5);
+                        priceMap = new TreeMap<>();
                     }
                     if (i == 28) {
                         tencentRealtimeDealInfoPo.setSellPriceMap(priceMap);
@@ -330,7 +329,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
         BigDecimal price = null;
         //售量
         Long num = null;
-        LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap(5);
+        TreeMap<BigDecimal, Long> priceMap = new TreeMap();
         for (int i = 1; i < dealInfoArr.length; i++) {
             String dealInfo = dealInfoArr[i];
             if (null == dealInfo || dealInfo.isEmpty()) {
@@ -355,7 +354,7 @@ public class TencentRealtimeDealInfoApi extends TencentBaseApi {
                     priceMap.put(price, num);
                     if (i == 18) {
                         tencentRealtimeDealInfoPo.setBuyPriceMap(priceMap);
-                        priceMap = new LinkedHashMap<>(5);
+                        priceMap = new TreeMap<>();
                     }
                     if (i == 28) {
                         tencentRealtimeDealInfoPo.setSellPriceMap(priceMap);

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 import java.util.List;
 
 /**
@@ -171,7 +171,7 @@ public class SZRealtimeDealApi extends SZBaseApi {
             if (jsonObject.containsKey("sellbuy5")) {
                 JSONArray priceArr = jsonObject.getJSONArray("sellbuy5");
                 if (priceArr.size() == 10) {
-                    LinkedHashMap<BigDecimal, Long> priceMap = new LinkedHashMap<>(5);
+                    TreeMap<BigDecimal, Long> priceMap = new TreeMap<>();
                     for (int i = 0; i < priceArr.size(); i++) {
                         JSONObject priceObj = priceArr.getJSONObject(i);
                         if (!priceObj.isEmpty() && priceObj.containsKey("price") && priceObj.containsKey("volume")) {
@@ -182,7 +182,7 @@ public class SZRealtimeDealApi extends SZBaseApi {
                         }
                         if (5 == i) {
                             szRealtimeDealPo.setSellPriceMap(priceMap);
-                            priceMap = new LinkedHashMap<>(5);
+                            priceMap = new TreeMap<>();
                         }
                     }
                     szRealtimeDealPo.setBuyPriceMap(priceMap);

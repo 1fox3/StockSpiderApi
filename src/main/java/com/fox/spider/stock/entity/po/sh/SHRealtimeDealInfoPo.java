@@ -1,12 +1,11 @@
 package com.fox.spider.stock.entity.po.sh;
 
-import com.fox.spider.stock.util.BigDecimalUtil;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * 证股票最新交易数据
@@ -83,11 +82,11 @@ public class SHRealtimeDealInfoPo implements Serializable {
     /**
      * 排名靠前的5个买方报价
      */
-    LinkedHashMap<BigDecimal, Long> buyPriceMap;
+    TreeMap<BigDecimal, Long> buyPriceMap;
     /**
      * 排名靠前的5个卖方报价
      */
-    LinkedHashMap<BigDecimal, Long> sellPriceMap;
+    TreeMap<BigDecimal, Long> sellPriceMap;
     /**
      * 未知的数据列表
      */

@@ -79,7 +79,7 @@ public class SinaBigDealApi extends SinaBaseApi {
     /**
      * 上一交易日平均每笔成交量倍数大单定义
      */
-    public static final Map<Integer, Integer> TIMES_MAP = new LinkedHashMap<Integer, Integer>() {{
+    public static final Map<Integer, Integer> TIMES_MAP = new TreeMap<Integer, Integer>() {{
         put(5, 1);
         put(10, 2);
         put(20, 3);
