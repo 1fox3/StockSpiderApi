@@ -8,6 +8,7 @@ import com.fox.spider.stock.entity.po.tencent.TencentKLineNodeDataPo;
 import com.fox.spider.stock.entity.po.tencent.TencentKLinePo;
 import com.fox.spider.stock.entity.vo.StockVo;
 import com.fox.spider.stock.util.BigDecimalUtil;
+import com.fox.spider.stock.util.DateUtil;
 import com.fox.spider.stock.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -137,23 +139,34 @@ public class TencentKLineApi extends TencentKLineBaseApi {
      *
      * @param stockVo
      * @param dateType
-     * @param len
+     * @param startDate
+     * @param endDate
      * @return
      */
-    public TencentKLinePo kLine(StockVo stockVo, Integer dateType, Integer fqType, Integer len) {
+    public TencentKLinePo kLine(StockVo stockVo, Integer dateType, Integer fqType, String startDate, String endDate) {
         if (null == stockVo || null == stockVo.getStockMarket() || null == stockVo.getStockCode()
-                || null == dateType || dateType < 0 || !DATE_TYPE_LIST.contains(dateType) || null == len || len < 0) {
+                || null == dateType || dateType < 0 || !DATE_TYPE_LIST.contains(dateType)) {
             return null;
         }
+        try {
+            if (DateUtil.compare(startDate, endDate, DateUtil.DATE_FORMAT_1) > 0) {
+                String tempDate = startDate;
+                startDate = endDate;
+                endDate = tempDate;
+            }
+        } catch (ParseException e) {
+            logger.error(stockVo.toString(), e);
+        }
+
         try {
             String tencnetStockCode = TencentBaseApi.tencentStockCode(stockVo);
             Map<String, Object> params = new HashMap<>(2);
             params.put("param", StringUtils.join(Arrays.asList(
                     tencnetStockCode,
                     getDateTypeStr(dateType),
-                    "",
-                    "",
-                    len.toString(),
+                    startDate,
+                    endDate,
+                    DateUtil.getDayDiffer(DateUtil.getDateFromStr(startDate, DateUtil.DATE_FORMAT_1), DateUtil.getDateFromStr(endDate, DateUtil.DATE_FORMAT_1)),
                     getFQTypeStr(fqType)
             ), ","));
             params.put("_var", getParamVar(dateType, fqType));
@@ -171,7 +184,7 @@ public class TencentKLineApi extends TencentKLineBaseApi {
                 tencentKLinePo.setKLineType(dateType);
             }
             return tencentKLinePo;
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             logger.error(stockVo.toString(), e);
         }
         return null;

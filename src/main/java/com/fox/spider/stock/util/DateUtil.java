@@ -286,4 +286,19 @@ public class DateUtil {
         simpleDateFormat.applyPattern(format);
         return simpleDateFormat.format(new Date(timestamp));
     }
+
+    /**
+     * 查询相隔的天数
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws ParseException
+     */
+    public static int getDayDiffer(Date startDate, Date endDate) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_1);
+        long startDateTime = dateFormat.parse(dateFormat.format(startDate)).getTime();
+        long endDateTime = dateFormat.parse(dateFormat.format(endDate)).getTime();
+        return (int) ((endDateTime - startDateTime) / (1000 * 3600 * 24));
+    }
 }

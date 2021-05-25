@@ -87,11 +87,13 @@ public class TencentApiTests extends StockBaseTests {
      */
     @Test
     void kLineTest() {
-        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_NO,2));
-        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_BEFORE,2));
-        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_AFTER,2));
-        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_WEEK, StockConst.SFQ_NO,2));
-        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_MONTH, StockConst.SFQ_NO,2));
+        String startDate = "2021-05-25";
+        String endDate = "2021-05-20";
+//        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_NO, startDate, endDate));
+        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_BEFORE, startDate, endDate));
+        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_DAY, StockConst.SFQ_AFTER, startDate, endDate));
+        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_WEEK, StockConst.SFQ_BEFORE, startDate, endDate));
+        System.out.println(tencentKLineApi.kLine(TEST_HK_STOCK, StockConst.DT_MONTH, StockConst.SFQ_BEFORE, startDate, endDate));
     }
 
     /**
