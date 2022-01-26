@@ -68,4 +68,22 @@ public class HttpResponseDto {
         }
         return null;
     }
+
+    /**
+     * 判断请求是否成功
+     *
+     * @return
+     */
+    public boolean isSuccess() {
+        return 200 == code;
+    }
+
+    /**
+     * 判断请求是否失败
+     *
+     * @return
+     */
+    public boolean isError() {
+        return 200 != code;
+    }
 }

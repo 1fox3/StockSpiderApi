@@ -96,6 +96,9 @@ public class NetsFQKLineDataApi extends NetsBaseApi {
                 url = fqKLineUrl(stockVo, year, fqType);
                 httpUtil.setUrl(url).setOriCharset("GBK");
                 httpResponse = httpUtil.request();
+                if (httpResponse.isError()) {
+                    return netsFQKLineDataPo;
+                }
                 NetsFQKLineDataPo currentNetsFQKLineDataPo = this.handleResponse(httpResponse.getContent());
                 List<NetsFQKLineNodeDataPo> list = currentNetsFQKLineDataPo.getKlineData();
                 List<NetsFQKLineNodeDataPo> filterList = new ArrayList<>();
